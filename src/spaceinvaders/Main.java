@@ -2,6 +2,7 @@ package spaceinvaders;
 
 import spaceinvaders.aliengrid.BaseAlienColumn;
 import spaceinvaders.objects.BaseAlien;
+import spaceinvaders.objects.Player;
 import spaceinvaders.objects.aliens.BigAlien;
 import spaceinvaders.scenes.BaseLevel;
 import spaceinvaders.scenes.levels.*;
@@ -14,66 +15,91 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class Main extends JPanel {
+public class Main implements GameRules{
 
-    static JFrame f;
+    private JFrame f_main;
+    private JPanel p_game;
 
 
-    private BaseAlien player;
+    private boolean gameOn;
+    private int tmrDelay;
+    private Timer tmr;
+    private Player player;
     private BaseLevel level;
-    private int score = 0;
-    private int livesLeft = 3;
-    long lastTime;
+    private int directionChangesLeft;
 
     public Main() throws IOException {
-        this.player = new BigAlien(new Position(100, 600));
-        this.level = new Level0();
-        /*super.getContentPane().setBackground(Color.BLACK);
-        super.setPreferredSize(new Dimension(player.getSprite().getWidth()*20, 600+ player.getSprite().getHeight()*10));
-        super.pack();
-        super.setVisible(true);
-        super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        player = new Player(new Position(100, 600));
+        level = new Level0();
+        gameOn = true;
+        directionChangesLeft = 2;
 
-        new Timer(1000, new ActionListener() {
+        f_main = new JFrame("SpaceInvaders");
+        p_game = new GamePanel(level,player);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                repaint();
+        f_main.setPreferredSize(new Dimension(player.getSprite().getWidth()*20, 600+ player.getSprite().getHeight()*10));
+        f_main.setResizable(false);
+        f_main.add(p_game);
+        f_main.pack();
+        f_main.setVisible(true);
+        f_main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                level.getAlienGrid().moveGrid(20,0,1);
+
+        this.tmrDelay = 1000;
+        this.tmr = new Timer(tmrDelay, e -> {
+            if(gameOn){
+                f_main.repaint();
+
+                //Checks which direction are aliens moving and gets either far left or far right column, based on direction
+                BaseAlienColumn tempColumn;
+                if(level.getAlienGrid().getMovementDirection() == 1){
+                    tempColumn = level.getAlienGrid().getFarRightAliveColumn();
+                }
+                else{
+                    tempColumn = level.getAlienGrid().getFarLeftAliveColumn();
+                }
+
+                //Checks if there are any aliens left alive, if not ends the game
+                if(tempColumn.equals(null)){
+                    gameOn = false;
+                }
+                else{
+
+                    //Checks if gird has reach the end of window, if so it changes movement direction
+                    if(tempColumn.getColumnPositionX() + maxHalfWidth * 2>= f_main.getWidth() ||
+                            tempColumn.getColumnPositionX() <= 0){
+                        level.getAlienGrid().swapDirection();
+                        directionChangesLeft--;
+                    }
+
+                    if(directionChangesLeft<=0){
+                        level.getAlienGrid().moveGrid(0,player.getSprite().getHeight(),1);
+                        directionChangesLeft = 2;
+                    }
+                    else{
+                        level.getAlienGrid().moveGrid(player.getSprite().getWidth()/3 * level.getAlienGrid().getMovementDirection(),0,1);
+                    }
+
+                    if(tmrDelay>50){
+                        tmrDelay-= 50;
+                        tmr.setDelay(tmrDelay);
+                    }
+                }
+
+            }
+            else{
+                tmr.stop();
             }
 
-        }).start();
-
-
-        lastTime = System.nanoTime();*/
+        });
+        tmr.start();
     }
 
-    @Override
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        //g.clearRect(0,0,super.getWidth(), super.getHeight());
-        System.out.println("test");
-        for(BaseAlienColumn bac : level.getAlienGrid().getGrid()){
-            for(BaseAlien ba : bac.getColumn()){
-                g.drawImage(ba.getSprite(),ba.getPosition().getX(), ba.getPosition().getY(), null);
-            }
-        }
-
-        g.drawImage(player.getSprite(), player.getPosition().getX(),player.getPosition().getY(), null);
-        g.setColor(Color.GREEN);
-        g.setFont( g.getFont().deriveFont( 20.0f ));
-        g.drawString("Score: "+score, 10,70);
-        g.drawString("Lives: "+livesLeft, 200,70);
-    }
 
     public static void main(String[] args) throws IOException, InvocationTargetException, InterruptedException {
-        f = new JFrame("test");
+        new Main();
 
-        f.setSize(900, 900);
-        f.pack();
-        f.setVisible(true);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
     }
 
 }

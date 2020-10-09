@@ -1,28 +1,21 @@
 package spaceinvaders.objects;
 
+import spaceinvaders.GameRules;
 import spaceinvaders.misc.GameObject;
 import spaceinvaders.misc.Position;
 
 import java.awt.image.BufferedImage;
 
-public abstract class BaseAlien extends GameObject {
+public abstract class BaseAlien extends GameObject implements GameRules {
     private int points;
     private boolean isAlive;
-    private static int maxHalfWidth = 32;
-    private final int centerOffset;
-
-    public BaseAlien(int points, BufferedImage image) {
-        super(image);
-        this.points = points;
-        this.isAlive = true;
-        this.centerOffset = maxHalfWidth - image.getWidth()/2;
-    }
 
     public BaseAlien(int points, BufferedImage image, Position position){
         super(image, position);
         this.points = points;
         this.isAlive = true;
-        this.centerOffset = maxHalfWidth - image.getWidth()/2;
+        super.getPosition().setCenterOffset_x(maxHalfWidth - image.getWidth()/2);
+        super.getPosition().setCenterOffset_y(maxHalfHeight - image.getHeight()/2);
     }
 
     public int getPoints() {
@@ -35,9 +28,5 @@ public abstract class BaseAlien extends GameObject {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
-    }
-
-    public int getCenterOffset() {
-        return centerOffset;
     }
 }

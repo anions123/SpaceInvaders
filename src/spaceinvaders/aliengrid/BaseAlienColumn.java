@@ -7,10 +7,13 @@ import java.util.List;
 public abstract class BaseAlienColumn {
     private int alienCount;
     private List<BaseAlien> alienColumn;
+    private boolean containsAliveAliens;
+    private int columnPositionX;
 
     public BaseAlienColumn(){
-        this.alienColumn = setAlienColumn();
-        this.alienCount = setAlienCount();
+        alienColumn = setAlienColumn();
+        alienCount = setAlienCount();
+        containsAliveAliens = true;
     }
 
     protected abstract List<BaseAlien> setAlienColumn();
@@ -25,6 +28,15 @@ public abstract class BaseAlienColumn {
         return null;
     }
 
+    public boolean checkIfContainsAliveAliens(){
+        if(containsAliveAliens){
+            if(getLastAlive().equals(null)){
+                containsAliveAliens = false;
+            }
+        }
+        return containsAliveAliens;
+    }
+
     public int getAlienCount(){
         return alienCount;
     }
@@ -34,12 +46,16 @@ public abstract class BaseAlienColumn {
     }
 
     public void setColumnPositionX(int x){
+        columnPositionX = x;
         for(BaseAlien ba : alienColumn){
-            ba.getPosition().setX(x + ba.getCenterOffset());
+            ba.getPosition().setX(x + ba.getPosition().getCenterOffset_x());
         }
     }
 
+    public int getColumnPositionX(){return columnPositionX;}
+
     public void moveColumn(int x, int y, double speed){
+        columnPositionX +=x;
         alienColumn.forEach(o -> o.getPosition().translate(x, y, speed, 1));
     }
 }
