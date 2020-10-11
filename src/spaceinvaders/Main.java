@@ -1,105 +1,134 @@
 package spaceinvaders;
 
-import spaceinvaders.aliengrid.BaseAlienColumn;
-import spaceinvaders.objects.BaseAlien;
-import spaceinvaders.objects.Player;
-import spaceinvaders.objects.aliens.BigAlien;
 import spaceinvaders.scenes.BaseLevel;
 import spaceinvaders.scenes.levels.*;
-import spaceinvaders.misc.Position;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class Main implements GameRules{
 
+public class Main{
+
+    private GameTimerListener gameTimerListener;
     private JFrame f_main;
-    private JPanel p_game;
+    private GamePanel p_game;
+    private InfoPanel p_info;
 
-
-    private boolean gameOn;
-    private int tmrDelay;
-    private Timer tmr;
-    private Player player;
     private BaseLevel level;
-    private int directionChangesLeft;
 
     public Main() throws IOException {
-        player = new Player(new Position(100, 600));
+        //Setup custom font for game
+        try {
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/spaceinvaders/fonts/karmatic_arcade/ka1.ttf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+            GameSettings.gameFont = customFont;
+        } catch (IOException |FontFormatException e) {
+            e.printStackTrace();
+            GameSettings.gameFont = new Font("TimesRoman", Font.BOLD, 20);
+        }
+
         level = new Level0();
-        gameOn = true;
-        directionChangesLeft = 2;
+        level.setupLevel();
+        GameSettings.gameOn = true;
+
+        p_game = new GamePanel(level);
+        p_game.setPreferredSize(new Dimension(GameSettings.windowWidth, GameSettings.windowHeight - (int)(GameSettings.windowHeight*0.05)));
+
+        p_info = new InfoPanel(level.getPlayer());
+        p_info.setPreferredSize(new Dimension(GameSettings.windowWidth, (int)(GameSettings.windowHeight*0.05)));
 
         f_main = new JFrame("SpaceInvaders");
-        p_game = new GamePanel(level,player);
-
-        f_main.setPreferredSize(new Dimension(player.getSprite().getWidth()*20, 600+ player.getSprite().getHeight()*10));
+        f_main.setPreferredSize(new Dimension(GameSettings.windowWidth, GameSettings.windowHeight));
         f_main.setResizable(false);
+        f_main.setLayout(new BoxLayout(f_main.getContentPane(), BoxLayout.Y_AXIS));
+        f_main.add(p_info);
         f_main.add(p_game);
         f_main.pack();
         f_main.setVisible(true);
         f_main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        //Setup input for player
+        p_game.requestFocus();
+        p_game.getInputMap().put(KeyStroke.getKeyStroke('a'), "moveLeft");
+        p_game.getInputMap().put(KeyStroke.getKeyStroke('d'), "moveRight");
+        p_game.getInputMap().put(KeyStroke.getKeyStroke("released SPACE"), "shoot");
 
-        this.tmrDelay = 1000;
-        this.tmr = new Timer(tmrDelay, e -> {
-            if(gameOn){
-                f_main.repaint();
-
-                //Checks which direction are aliens moving and gets either far left or far right column, based on direction
-                BaseAlienColumn tempColumn;
-                if(level.getAlienGrid().getMovementDirection() == 1){
-                    tempColumn = level.getAlienGrid().getFarRightAliveColumn();
-                }
-                else{
-                    tempColumn = level.getAlienGrid().getFarLeftAliveColumn();
-                }
-
-                //Checks if there are any aliens left alive, if not ends the game
-                if(tempColumn.equals(null)){
-                    gameOn = false;
-                }
-                else{
-
-                    //Checks if gird has reach the end of window, if so it changes movement direction
-                    if(tempColumn.getColumnPositionX() + maxHalfWidth * 2>= f_main.getWidth() ||
-                            tempColumn.getColumnPositionX() <= 0){
-                        level.getAlienGrid().swapDirection();
-                        directionChangesLeft--;
-                    }
-
-                    if(directionChangesLeft<=0){
-                        level.getAlienGrid().moveGrid(0,player.getSprite().getHeight(),1);
-                        directionChangesLeft = 2;
-                    }
-                    else{
-                        level.getAlienGrid().moveGrid(player.getSprite().getWidth()/3 * level.getAlienGrid().getMovementDirection(),0,1);
-                    }
-
-                    if(tmrDelay>50){
-                        tmrDelay-= 50;
-                        tmr.setDelay(tmrDelay);
-                    }
-                }
-
+        p_game.getActionMap().put("moveLeft", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(level.getPlayer().getPosition().getX() - GameSettings.playerSpeed < 0)
+                    level.getPlayer().getPosition().setX(0);
+                else
+                    level.getPlayer().getPosition().translate(-GameSettings.playerSpeed, 0);
             }
-            else{
-                tmr.stop();
-            }
-
         });
-        tmr.start();
+
+        p_game.getActionMap().put("moveRight", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(level.getPlayer().getPosition().getX() + level.getPlayer().getSprite().getWidth() + GameSettings.playerSpeed < GameSettings.windowWidth)
+                    level.getPlayer().getPosition().translate(GameSettings.playerSpeed, 0);
+            }
+        });
+
+        p_game.getActionMap().put("shoot", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    level.getPlayer().shoot(level);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+
+        //Timer for game loop
+        gameTimerListener = new GameTimerListener(f_main, p_info);
+        new Timer(GameSettings.gameDelay, gameTimerListener).start();
+
+
     }
 
 
     public static void main(String[] args) throws IOException, InvocationTargetException, InterruptedException {
-        new Main();
-
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new Main();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
+}
+
+
+class GameTimerListener implements ActionListener{
+    private JFrame f_main;
+    private InfoPanel p_info;
+
+    public GameTimerListener(JFrame f_main, InfoPanel p_info){
+        this.f_main = f_main;
+        this.p_info = p_info;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(f_main != null && f_main.isDisplayable() && GameSettings.gameOn){
+            f_main.repaint();
+            p_info.updateValues();
+        }
+        else{
+            ((Timer)e.getSource()).stop();
+        }
+    }
 }

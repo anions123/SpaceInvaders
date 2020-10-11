@@ -7,6 +7,7 @@ import spaceinvaders.objects.aliens.MediumAlien;
 import spaceinvaders.objects.aliens.SmallAlien;
 import spaceinvaders.misc.Position;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,13 @@ public class AlienColumn2 extends BaseAlienColumn {
     protected List<BaseAlien> setAlienColumn() {
         List<BaseAlien> alienColumn = new ArrayList<>();
         try {
-            int y_pos = 100;
-            alienColumn.add(new BigAlien(new Position(0, y_pos)));
-            alienColumn.add(new MediumAlien(new Position(0, y_pos + 50)));
-            alienColumn.add(new BigAlien(new Position(0, y_pos + 100)));
-            alienColumn.add(new SmallAlien(new Position(0, y_pos + 150)));
-            alienColumn.add(new SmallAlien(new Position(0, y_pos + 200)));
-            alienColumn.add(new MediumAlien(new Position(0, y_pos + 250)));
+            int y_pos = 0;
+            alienColumn.add(new BigAlien(new Position(0, y_pos, 1)));
+            alienColumn.add(new MediumAlien(new Position(0, y_pos + 50, 1)));
+            alienColumn.add(new BigAlien(new Position(0, y_pos + 100, 1)));
+            alienColumn.add(new SmallAlien(new Position(0, y_pos + 150, 1)));
+            alienColumn.add(new SmallAlien(new Position(0, y_pos + 200,1)));
+            alienColumn.add(new MediumAlien(new Position(0, y_pos + 250, 1)));
         } catch (IOException e) {
             e.printStackTrace();
         }

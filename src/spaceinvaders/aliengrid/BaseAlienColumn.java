@@ -1,10 +1,12 @@
 package spaceinvaders.aliengrid;
 
+import spaceinvaders.Rendering;
 import spaceinvaders.objects.BaseAlien;
 
+import java.awt.*;
 import java.util.List;
 
-public abstract class BaseAlienColumn {
+public abstract class BaseAlienColumn implements Rendering {
     private int alienCount;
     private List<BaseAlien> alienColumn;
     private boolean containsAliveAliens;
@@ -30,12 +32,13 @@ public abstract class BaseAlienColumn {
 
     public boolean checkIfContainsAliveAliens(){
         if(containsAliveAliens){
-            if(getLastAlive().equals(null)){
+            if(getLastAlive() == null){
                 containsAliveAliens = false;
             }
         }
         return containsAliveAliens;
     }
+
 
     public int getAlienCount(){
         return alienCount;
@@ -54,8 +57,14 @@ public abstract class BaseAlienColumn {
 
     public int getColumnPositionX(){return columnPositionX;}
 
-    public void moveColumn(int x, int y, double speed){
+    public void moveColumn(int x, int y){
         columnPositionX +=x;
-        alienColumn.forEach(o -> o.getPosition().translate(x, y, speed, 1));
+        alienColumn.forEach(o -> o.getPosition().translate(x, y));
+    }
+
+    public void render(Graphics g) {
+        for(BaseAlien a : alienColumn){
+            a.render(g);
+        }
     }
 }
