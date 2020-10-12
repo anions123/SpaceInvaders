@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Main{
 
     private GameTimerListener gameTimerListener;
+    public static boolean LEFT, RIGHT, SHOOTING = false;
     private JFrame f_main;
     private GamePanel p_game;
     private InfoPanel p_info;
@@ -55,56 +56,61 @@ public class Main{
 
         //Setup input for player
         p_game.requestFocus();
-        p_game.getInputMap().put(KeyStroke.getKeyStroke('a'), "moveLeft");
-        p_game.getInputMap().put(KeyStroke.getKeyStroke('d'), "moveRight");
+        p_game.getInputMap().put(KeyStroke.getKeyStroke("pressed A"), "leftOn");
+        p_game.getInputMap().put(KeyStroke.getKeyStroke("released A"), "leftOff");
+        p_game.getInputMap().put(KeyStroke.getKeyStroke("pressed D"), "rightOn");
+        p_game.getInputMap().put(KeyStroke.getKeyStroke("released D"), "rightOff");
+
         p_game.getInputMap().put(KeyStroke.getKeyStroke("released SPACE"), "shoot");
 
-        p_game.getActionMap().put("moveLeft", new AbstractAction() {
+        p_game.getActionMap().put("leftOff", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(level.getPlayer().getPosition().getX() - GameSettings.playerSpeed < 0)
-                    level.getPlayer().getPosition().setX(0);
-                else
-                    level.getPlayer().getPosition().translate(-GameSettings.playerSpeed, 0);
+                LEFT = false;
+            }
+        });
+        p_game.getActionMap().put("leftOn", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LEFT = true;
+
             }
         });
 
-        p_game.getActionMap().put("moveRight", new AbstractAction() {
+        p_game.getActionMap().put("rightOff", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(level.getPlayer().getPosition().getX() + level.getPlayer().getSprite().getWidth() + GameSettings.playerSpeed < GameSettings.windowWidth)
-                    level.getPlayer().getPosition().translate(GameSettings.playerSpeed, 0);
+                RIGHT = false;
+            }
+        });
+        p_game.getActionMap().put("rightOn", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RIGHT = true;
             }
         });
 
         p_game.getActionMap().put("shoot", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    level.getPlayer().shoot(level);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
+                SHOOTING = true;
             }
         });
 
         //Timer for game loop
-        gameTimerListener = new GameTimerListener(f_main, p_info);
+        gameTimerListener = new GameTimerListener(f_main, p_info, level);
         new Timer(GameSettings.gameDelay, gameTimerListener).start();
 
 
     }
 
 
-    public static void main(String[] args) throws IOException, InvocationTargetException, InterruptedException {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new Main();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new Main();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -115,8 +121,10 @@ public class Main{
 class GameTimerListener implements ActionListener{
     private JFrame f_main;
     private InfoPanel p_info;
+    private BaseLevel level;
 
-    public GameTimerListener(JFrame f_main, InfoPanel p_info){
+    public GameTimerListener(JFrame f_main, InfoPanel p_info, BaseLevel level){
+        this.level = level;
         this.f_main = f_main;
         this.p_info = p_info;
     }
@@ -124,6 +132,27 @@ class GameTimerListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(f_main != null && f_main.isDisplayable() && GameSettings.gameOn){
+            if(Main.LEFT || Main.RIGHT){
+                int left = Main.LEFT ? 1 : 0;
+                int right = Main.RIGHT ? 1 : 0;
+                level.getPlayer().getPosition().translate(-GameSettings.playerSpeed* left +
+                        GameSettings.playerSpeed*right, 0);
+                if(level.getPlayer().getPosition().getX()< 0)
+                    level.getPlayer().getPosition().setX(0);
+                if(level.getPlayer().getPosition().getX() + level.getPlayer().getSprite().getHeight() > GameSettings.windowWidth){
+                    level.getPlayer().getPosition().setX(GameSettings.windowWidth - level.getPlayer().getSprite().getWidth());
+                }
+
+            }
+            if(Main.SHOOTING){
+                try {
+                    level.getPlayer().shoot(level);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+            }
+            Main.SHOOTING = false;
             f_main.repaint();
             p_info.updateValues();
         }

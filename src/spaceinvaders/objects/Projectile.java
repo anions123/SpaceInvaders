@@ -1,14 +1,12 @@
 package spaceinvaders.objects;
 
 import spaceinvaders.GameSettings;
-import spaceinvaders.aliengrid.BaseAlienGrid;
 import spaceinvaders.misc.GameObject;
 import spaceinvaders.misc.Position;
 import spaceinvaders.scenes.BaseLevel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -19,7 +17,7 @@ public class Projectile extends GameObject {
     private boolean aliveProjectile = true;
 
     public Projectile(Position position, BaseLevel level, String ownerType) throws IOException {
-        super(ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/alienSmall.png")), position);
+        super(ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/projectiles/missile.png")), position);
         this.ownerType = ownerType;
         new Timer(GameSettings.gameDelay, new ProjectileTimerListener(this, level)).start();
     }

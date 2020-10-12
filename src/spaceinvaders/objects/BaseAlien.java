@@ -56,7 +56,7 @@ public abstract class BaseAlien extends GameObject implements Shooting {
 
     @Override
     public void shoot(BaseLevel level) throws IOException {
-        if(canShoot){
+        if(canShoot()){
             projectile = new Projectile(new Position(
                     super.getPosition().getX() + super.getPosition().getCenterOffset_x(),
                     super.getPosition().getY() + super.getSprite().getHeight(),

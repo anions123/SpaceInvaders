@@ -19,7 +19,9 @@ public class Player extends GameObject implements Shooting {
     private int score;
 
     public Player(Position position) throws IOException {
-        super(ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/alienBig.png")), position);
+        super(ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/players/player.png")), position);
+        super.getPosition().setCenterOffset_x(super.getSprite().getWidth()/2);
+        super.getPosition().setCenterOffset_y(super.getSprite().getHeight()/2);
         livesLeft = GameSettings.livesLeft;
     }
 

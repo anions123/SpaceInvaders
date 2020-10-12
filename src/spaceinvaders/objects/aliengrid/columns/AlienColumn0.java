@@ -1,13 +1,12 @@
-package spaceinvaders.aliengrid.columns;
+package spaceinvaders.objects.aliengrid.columns;
 
-import spaceinvaders.aliengrid.BaseAlienColumn;
+import spaceinvaders.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.objects.BaseAlien;
 import spaceinvaders.objects.aliens.BigAlien;
 import spaceinvaders.objects.aliens.MediumAlien;
 import spaceinvaders.objects.aliens.SmallAlien;
 import spaceinvaders.misc.Position;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,15 +1,13 @@
-package spaceinvaders.aliengrid.grids;
+package spaceinvaders.objects.aliengrid.grids;
 
 import spaceinvaders.GameSettings;
-import spaceinvaders.aliengrid.BaseAlienColumn;
-import spaceinvaders.aliengrid.BaseAlienGrid;
-import spaceinvaders.aliengrid.columns.AlienColumn0;
-import spaceinvaders.aliengrid.columns.AlienColumn1;
-import spaceinvaders.aliengrid.columns.AlienColumn2;
-import spaceinvaders.objects.Player;
+import spaceinvaders.objects.aliengrid.BaseAlienColumn;
+import spaceinvaders.objects.aliengrid.BaseAlienGrid;
+import spaceinvaders.objects.aliengrid.columns.AlienColumn0;
+import spaceinvaders.objects.aliengrid.columns.AlienColumn1;
+import spaceinvaders.objects.aliengrid.columns.AlienColumn2;
 import spaceinvaders.scenes.BaseLevel;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +39,5 @@ public class AlienGrid1 extends BaseAlienGrid {
     @Override
     protected int setAlienColumnCount() {
         return 9;
-    }
-
-    @Override
-    public void render(Graphics g) {
-
     }
 }

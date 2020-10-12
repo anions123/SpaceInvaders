@@ -10,6 +10,6 @@ import java.io.IOException;
 public class BigAlien extends BaseAlien {
 
     public BigAlien(Position position) throws IOException {
-        super(30, ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/alienBig.png")), position);
+        super(30, ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/aliens/alienBig.png")), position);
     }
 }

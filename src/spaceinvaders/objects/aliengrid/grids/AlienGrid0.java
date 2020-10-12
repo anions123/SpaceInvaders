@@ -1,14 +1,11 @@
-package spaceinvaders.aliengrid.grids;
+package spaceinvaders.objects.aliengrid.grids;
 
 import spaceinvaders.GameSettings;
-import spaceinvaders.aliengrid.BaseAlienColumn;
-import spaceinvaders.aliengrid.BaseAlienGrid;
-import spaceinvaders.aliengrid.columns.AlienColumn0;
-import spaceinvaders.objects.Base;
-import spaceinvaders.objects.Player;
+import spaceinvaders.objects.aliengrid.BaseAlienColumn;
+import spaceinvaders.objects.aliengrid.BaseAlienGrid;
+import spaceinvaders.objects.aliengrid.columns.AlienColumn0;
 import spaceinvaders.scenes.BaseLevel;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

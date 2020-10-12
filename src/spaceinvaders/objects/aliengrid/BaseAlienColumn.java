@@ -1,6 +1,6 @@
-package spaceinvaders.aliengrid;
+package spaceinvaders.objects.aliengrid;
 
-import spaceinvaders.Rendering;
+import spaceinvaders.misc.Rendering;
 import spaceinvaders.objects.BaseAlien;
 
 import java.awt.*;

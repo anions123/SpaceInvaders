@@ -1,7 +1,5 @@
 package spaceinvaders.misc;
 
-import spaceinvaders.Rendering;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

@@ -1,19 +1,18 @@
 package spaceinvaders.scenes;
 
 import spaceinvaders.GameSettings;
-import spaceinvaders.Rendering;
-import spaceinvaders.aliengrid.BaseAlienColumn;
-import spaceinvaders.aliengrid.BaseAlienGrid;
-import spaceinvaders.misc.CollisionBox;
-import spaceinvaders.objects.BaseAlien;
-import spaceinvaders.objects.Player;
-import spaceinvaders.objects.Projectile;
+import spaceinvaders.misc.Rendering;
+import spaceinvaders.objects.*;
+import spaceinvaders.objects.aliengrid.BaseAlienColumn;
+import spaceinvaders.objects.aliengrid.BaseAlienGrid;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class BaseLevel implements Rendering {
     private BaseAlienGrid alienGrid;
     private Player player;
+    private ArrayList<BaseShield> shields;
 
     abstract public void setupLevel();
 
@@ -28,6 +27,12 @@ public abstract class BaseLevel implements Rendering {
     }
     public void setPlayer(Player player){
         this.player = player;
+    }
+    public void setShields(ArrayList<BaseShield> shields){
+        this.shields = shields;
+    }
+    public ArrayList<BaseShield> getShields(){
+        return shields;
     }
 
     public boolean projectileCollisionDetector(Projectile projectile){
@@ -61,12 +66,30 @@ public abstract class BaseLevel implements Rendering {
             }
         }
 
+        for(BaseShield s : shields){
+            for(BaseShieldPart sp : s.getShield()){
+                tester = sp.getCollisionBox().doCollide(projectile.getCollisionBox());
+                if(tester){
+                    if(sp.getCurrentLives() > 0){
+                        sp.decCurrentLives();
+                        return true;
+                    }
+                    else{
+                        return false;
+
+                    }
+                }
+            }
+        }
         return false;
     }
 
     public void render(Graphics g){
         alienGrid.render(g);
         player.render(g);
+        for(BaseShield s : shields){
+            s.render(g);
+        }
     }
 
 }

@@ -1,10 +1,8 @@
-package spaceinvaders.aliengrid;
+package spaceinvaders.objects.aliengrid;
 
 import spaceinvaders.GameSettings;
-import spaceinvaders.Rendering;
-import spaceinvaders.misc.CollisionBox;
+import spaceinvaders.misc.Rendering;
 import spaceinvaders.objects.BaseAlien;
-import spaceinvaders.objects.Player;
 import spaceinvaders.scenes.BaseLevel;
 
 import javax.swing.*;
