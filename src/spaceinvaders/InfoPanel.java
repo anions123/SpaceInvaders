@@ -10,10 +10,7 @@ public class InfoPanel extends JPanel{
     private JLabel scoreLabel;
     private JLabel livesLabel;
 
-    private Player player;
-
-    public InfoPanel(Player player){
-        this.player = player;
+    public InfoPanel(){
         super.setBackground(GameSettings.backgroundColor);
         super.setLayout(new GridLayout(1,2));
         scoreLabel = new JLabel("Score "+ GameSettings.score, JLabel.LEFT);
@@ -29,7 +26,7 @@ public class InfoPanel extends JPanel{
     }
 
     public void updateValues(){
-        scoreLabel.setText("Score "+ player.getScore());
-        livesLabel.setText("Lives "+ player.getLivesLeft());
+        scoreLabel.setText("Score "+ GameRules.getInstance().getPlayer().getScore());
+        livesLabel.setText("Lives "+ GameRules.getInstance().getPlayer().getLivesLeft());
     }
 }

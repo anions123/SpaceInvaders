@@ -17,5 +17,4 @@ public class GameSettings {
     public static int gridDelay = 500;
     public static int gridDelayDecay = 50;
     public static int gameDelay = 8;
-    public static boolean gameOn = true;
 }

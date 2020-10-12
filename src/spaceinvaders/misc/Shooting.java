@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface Shooting {
     boolean canShoot();
-    void shoot(BaseLevel level) throws IOException;
+    void shoot() throws IOException;
 }

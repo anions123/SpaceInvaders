@@ -19,6 +19,7 @@ public class Main{
     private JFrame f_main;
     private GamePanel p_game;
     private InfoPanel p_info;
+    private GameRules gameRules;
 
     private BaseLevel level;
 
@@ -34,14 +35,15 @@ public class Main{
             GameSettings.gameFont = new Font("TimesRoman", Font.BOLD, 20);
         }
 
-        level = new Level0();
-        level.setupLevel();
-        GameSettings.gameOn = true;
+        //level = new Level0();
+        //.setupLevel();
+        gameRules = GameRules.getInstance();
+        gameRules.initialize(new Level1());
 
-        p_game = new GamePanel(level);
+        p_game = new GamePanel();
         p_game.setPreferredSize(new Dimension(GameSettings.windowWidth, GameSettings.windowHeight - (int)(GameSettings.windowHeight*0.05)));
 
-        p_info = new InfoPanel(level.getPlayer());
+        p_info = new InfoPanel();
         p_info.setPreferredSize(new Dimension(GameSettings.windowWidth, (int)(GameSettings.windowHeight*0.05)));
 
         f_main = new JFrame("SpaceInvaders");
@@ -98,7 +100,7 @@ public class Main{
         });
 
         //Timer for game loop
-        gameTimerListener = new GameTimerListener(f_main, p_info, level);
+        gameTimerListener = new GameTimerListener(f_main, p_info);
         new Timer(GameSettings.gameDelay, gameTimerListener).start();
 
 
@@ -121,32 +123,32 @@ public class Main{
 class GameTimerListener implements ActionListener{
     private JFrame f_main;
     private InfoPanel p_info;
-    private BaseLevel level;
+    private GameRules gameRules;
 
-    public GameTimerListener(JFrame f_main, InfoPanel p_info, BaseLevel level){
-        this.level = level;
+    public GameTimerListener(JFrame f_main, InfoPanel p_info){
         this.f_main = f_main;
         this.p_info = p_info;
+        gameRules = GameRules.getInstance();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(f_main != null && f_main.isDisplayable() && GameSettings.gameOn){
+        if(f_main != null && f_main.isDisplayable() && gameRules.isGameOn()){
             if(Main.LEFT || Main.RIGHT){
                 int left = Main.LEFT ? 1 : 0;
                 int right = Main.RIGHT ? 1 : 0;
-                level.getPlayer().getPosition().translate(-GameSettings.playerSpeed* left +
+                gameRules.getPlayer().getPosition().translate(-GameSettings.playerSpeed* left +
                         GameSettings.playerSpeed*right, 0);
-                if(level.getPlayer().getPosition().getX()< 0)
-                    level.getPlayer().getPosition().setX(0);
-                if(level.getPlayer().getPosition().getX() + level.getPlayer().getSprite().getHeight() > GameSettings.windowWidth){
-                    level.getPlayer().getPosition().setX(GameSettings.windowWidth - level.getPlayer().getSprite().getWidth());
+                if(gameRules.getPlayer().getPosition().getX()< 0)
+                    gameRules.getPlayer().getPosition().setX(0);
+                if(gameRules.getPlayer().getPosition().getX() + gameRules.getPlayer().getSprite().getHeight() > GameSettings.windowWidth){
+                    gameRules.getPlayer().getPosition().setX(GameSettings.windowWidth - gameRules.getPlayer().getSprite().getWidth());
                 }
 
             }
             if(Main.SHOOTING){
                 try {
-                    level.getPlayer().shoot(level);
+                    gameRules.getPlayer().shoot();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

@@ -1,10 +1,14 @@
 package spaceinvaders.scenes.levels;
 
+import spaceinvaders.AlienCollisionDetector;
 import spaceinvaders.GameSettings;
+import spaceinvaders.PlayerCollisionDetector;
+import spaceinvaders.ShieldCollisionDetector;
 import spaceinvaders.objects.BaseShield;
 import spaceinvaders.objects.aliengrid.grids.AlienGrid0;
 import spaceinvaders.misc.Position;
 import spaceinvaders.objects.Player;
+import spaceinvaders.objects.aliengrid.grids.AlienGrid1;
 import spaceinvaders.objects.shields.fortress.FortressShield;
 import spaceinvaders.scenes.BaseLevel;
 
@@ -13,25 +17,25 @@ import java.util.ArrayList;
 
 public class Level0 extends BaseLevel {
     private static int playerPosition_y = (int)(GameSettings.windowHeight * 0.8);
-    private ArrayList<BaseShield> shield;
 
     public Level0(){
-        shield = new ArrayList<>();
-        shield.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.1), (int)(GameSettings.windowHeight*0.6), -1)));
-        shield.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.35), (int)(GameSettings.windowHeight*0.6), -1)));
-        shield.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.6), (int)(GameSettings.windowHeight*0.6), -1)));
-        shield.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.85), (int)(GameSettings.windowHeight*0.6), -1)));
-    }
+        shields = new ArrayList<>();
+        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.1), (int)(GameSettings.windowHeight*0.6), -1)));
+        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.3), (int)(GameSettings.windowHeight*0.6), -1)));
+        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.6), (int)(GameSettings.windowHeight*0.6), -1)));
+        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.9), (int)(GameSettings.windowHeight*0.6), -1)));
 
-    @Override
-    public void setupLevel() {
-        super.setAlienGrid(new AlienGrid0(this));
-        super.setShields(shield);
+        alienGrid = new AlienGrid0(this);
         try {
-            super.setPlayer(new Player(new Position(GameSettings.windowWidth/2, playerPosition_y, -1)));
+            player = new Player(new Position(GameSettings.windowWidth/2,playerPosition_y, -1));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        collisionList = new ArrayList<>();
+        collisionList.add(new PlayerCollisionDetector());
+        collisionList.add(new AlienCollisionDetector());
+        collisionList.add(new ShieldCollisionDetector());
     }
 
 }
