@@ -10,7 +10,7 @@ public class GameSettings {
     public static int score = 0;
     public static int livesLeft = 100;
     public static int playerSpeed = 10;
-    public static int projectileSpeed = 15;
+    public static int projectileSpeed = 10;
     public static Font gameFont;
     public static Color backgroundColor = Color.black;
     public static Color textColor = Color.green;

@@ -21,8 +21,9 @@ public class Level1 extends BaseLevel {
     public Level1(){
         shields = new ArrayList<>();
         shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.1), (int)(GameSettings.windowHeight*0.6), -1)));
-        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.3), (int)(GameSettings.windowHeight*0.6), -1)));
-        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.6), (int)(GameSettings.windowHeight*0.6), -1)));
+        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.30), (int)(GameSettings.windowHeight*0.6), -1)));
+        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.50), (int)(GameSettings.windowHeight*0.6), -1)));
+        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.75), (int)(GameSettings.windowHeight*0.6), -1)));
         shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.9), (int)(GameSettings.windowHeight*0.6), -1)));
 
         alienGrid = new AlienGrid1(this);

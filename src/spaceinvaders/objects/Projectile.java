@@ -19,6 +19,7 @@ public class Projectile extends GameObject {
 
     public Projectile(Position position, String ownerType) throws IOException {
         super(ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/projectiles/missile.png")), position);
+        resizeSpriteIfBiggerThan(GameSettings.maxHalfWidth*2, GameSettings.maxHalfHeight*2);
         this.ownerType = ownerType;
         new Timer(GameSettings.gameDelay, new ProjectileTimerListener(this)).start();
     }

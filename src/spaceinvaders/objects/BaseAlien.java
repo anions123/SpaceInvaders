@@ -19,6 +19,7 @@ public abstract class BaseAlien extends GameObject implements Shooting {
 
     public BaseAlien(int points, BufferedImage image, Position position){
         super(image, position);
+        resizeSpriteIfBiggerThan(GameSettings.maxHalfWidth*2, GameSettings.maxHalfHeight*2);
         this.points = points;
         this.isAlive = true;
         super.getPosition().setCenterOffset_x(GameSettings.maxHalfWidth - image.getWidth()/2);

@@ -38,7 +38,7 @@ public class Main{
         //level = new Level0();
         //.setupLevel();
         gameRules = GameRules.getInstance();
-        gameRules.initialize(new Level1());
+        gameRules.initialize(new Level0());
 
         p_game = new GamePanel();
         p_game.setPreferredSize(new Dimension(GameSettings.windowWidth, GameSettings.windowHeight - (int)(GameSettings.windowHeight*0.05)));

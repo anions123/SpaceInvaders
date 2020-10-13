@@ -1,6 +1,8 @@
 package spaceinvaders.misc;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class GameObject implements Rendering {
@@ -40,6 +42,23 @@ public class GameObject implements Rendering {
         return sprite;
     }
     public void setSprite(BufferedImage sprite){this.sprite = sprite;}
+    public void resizeSpriteIfBiggerThan(int width, int height){
+        if(sprite.getWidth() > width || sprite.getHeight() > height){
+            int w = sprite.getWidth();
+            int h = sprite.getHeight();
+            width = Math.min(w, width);
+            height = Math.min(h, height);
+            BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+            AffineTransform at = new AffineTransform();
+            at.scale((double)width/w, (double)height/h);
+            AffineTransformOp scaleOp =
+                    new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+            after = scaleOp.filter(sprite, after);
+            sprite = after;
+            collisionBox.updateCollision(sprite.getWidth(), sprite.getHeight());
+        }
+
+    }
 
     public Position getPosition(){
         return position;

@@ -1,5 +1,6 @@
 package spaceinvaders.objects;
 
+import spaceinvaders.GameSettings;
 import spaceinvaders.misc.Rendering;
 import spaceinvaders.misc.Position;
 
@@ -26,6 +27,9 @@ public abstract class BaseShield implements Rendering {
     public void addShieldPartByGrid(BaseShieldPart shieldPart, int grid_x, int grid_y){
         shieldPart.getPosition().setX(position.getX() + grid_x * cellWidth);
         shieldPart.getPosition().setY(position.getY() + grid_y * cellHeight);
+        //Resize part if its bigger than cell size
+        shieldPart.resizeSpriteIfBiggerThan(cellWidth, cellHeight);
+
         shield.add(shieldPart);
     }
 

@@ -37,4 +37,10 @@ public class CollisionBox {
 
     public int getWidth() { return width; }
     public void setWidth(int width) { this.width = width; }
+
+    public void updateCollision(int width, int height){
+        this.width = width;
+        this.height = height;
+
+    }
 }
