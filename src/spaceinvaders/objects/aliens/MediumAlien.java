@@ -8,11 +8,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class MediumAlien extends BaseAlien {
-    public MediumAlien() throws IOException {
-        super(20, ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/alienMedium.png")));
-    }
 
     public MediumAlien(Position position) throws IOException {
-        super(20, ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/alienMedium.png")), position);
+        super(20, ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/aliens/alienMedium.png")), position);
     }
 }

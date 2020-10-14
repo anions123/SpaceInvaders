@@ -1,6 +1,6 @@
-package spaceinvaders.aliengrid.columns;
+package spaceinvaders.objects.aliengrid.columns;
 
-import spaceinvaders.aliengrid.BaseAlienColumn;
+import spaceinvaders.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.objects.BaseAlien;
 import spaceinvaders.objects.aliens.BigAlien;
 import spaceinvaders.objects.aliens.SmallAlien;
@@ -15,12 +15,12 @@ public class AlienColumn1 extends BaseAlienColumn {
     protected List<BaseAlien> setAlienColumn() {
         List<BaseAlien> alienColumn = new ArrayList<>();
         try {
-            int y_pos = 100;
-            alienColumn.add(new BigAlien(new Position(0, y_pos)));
-            alienColumn.add(new BigAlien(new Position(0, y_pos + 50)));
-            alienColumn.add(new BigAlien(new Position(0, y_pos + 100)));
-            alienColumn.add(new SmallAlien(new Position(0, y_pos + 150)));
-            alienColumn.add(new SmallAlien(new Position(0, y_pos + 200)));
+            int y_pos = 0;
+            alienColumn.add(new BigAlien(new Position(0, y_pos, 1)));
+            alienColumn.add(new BigAlien(new Position(0, y_pos + 50, 1)));
+            alienColumn.add(new BigAlien(new Position(0, y_pos + 100, 1)));
+            alienColumn.add(new SmallAlien(new Position(0, y_pos + 150, 1)));
+            alienColumn.add(new SmallAlien(new Position(0, y_pos + 200, 1)));
         } catch (IOException e) {
             e.printStackTrace();
         }
