@@ -1,6 +1,7 @@
 package spaceinvaders.objects.aliengrid.grids;
 
 import spaceinvaders.GameSettings;
+import spaceinvaders.objects.BaseAlien;
 import spaceinvaders.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.objects.aliengrid.BaseAlienGrid;
 import spaceinvaders.objects.aliengrid.columns.AlienColumn0;
@@ -12,27 +13,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlienGrid1 extends BaseAlienGrid {
-    public AlienGrid1(BaseLevel level) {
-        super(level);
+    public AlienGrid1() {
+        super();
     }
 
     @Override
     protected List<BaseAlienColumn> setAlienGrid() {
         List<BaseAlienColumn> alienColumns = new ArrayList<>();
         int pos_x = 0;
-        int x_offset = (int)(GameSettings.maxHalfWidth*2.5);
-        alienColumns.add(new AlienColumn1());
-        alienColumns.get(0).setColumnPositionX(pos_x + 0 * x_offset);
-        alienColumns.add(new AlienColumn2());
-        alienColumns.get(1).setColumnPositionX(pos_x + 1 * x_offset);
+        BaseAlienColumn alienColumn10 = new AlienColumn1();
+        BaseAlienColumn alienColumn11 = new AlienColumn1();
+        BaseAlienColumn alienColumn20 = new AlienColumn2();
+        BaseAlienColumn alienColumn21 = new AlienColumn2();
+        alienColumn10.setColumnPositionX(pos_x);
+        alienColumn11.setColumnPositionX(pos_x + 8*(int)(alienColumn11.getWidthOfWidestAliveAlien()*1.25));
+        alienColumn20.setColumnPositionX(pos_x + 1*(int)(alienColumn20.getWidthOfWidestAliveAlien()*1.25));
+        alienColumn21.setColumnPositionX(pos_x + 7*(int)(alienColumn21.getWidthOfWidestAliveAlien()*1.25));
+
+        alienColumns.add(alienColumn10);
+        alienColumns.add(alienColumn20);
+
+        BaseAlienColumn alienColumn0;
         for(int i = 0; i < 5; i++){
-            alienColumns.add(new AlienColumn0());
-            alienColumns.get(i+2).setColumnPositionX(pos_x + (i+2) * x_offset);
+            alienColumn0 = new AlienColumn0();
+            alienColumn0.setColumnPositionX(pos_x + (i+2)*(int)(alienColumn0.getWidthOfWidestAliveAlien()*1.25));
+            alienColumns.add(alienColumn0);
         }
-        alienColumns.add(new AlienColumn2());
-        alienColumns.get(7).setColumnPositionX(pos_x + 7 * x_offset);
-        alienColumns.add(new AlienColumn1());
-        alienColumns.get(8).setColumnPositionX(pos_x + 8 * x_offset);
+        alienColumns.add(alienColumn21);
+        alienColumns.add(alienColumn11);
         return alienColumns;
     }
 

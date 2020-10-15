@@ -26,7 +26,7 @@ public class Level1 extends BaseLevel {
         shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.75), (int)(GameSettings.windowHeight*0.6), -1)));
         shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.9), (int)(GameSettings.windowHeight*0.6), -1)));
 
-        alienGrid = new AlienGrid1(this);
+        alienGrid = new AlienGrid1();
         try {
             player = new Player(new Position(GameSettings.windowWidth/2,playerPosition_y, -1));
         } catch (IOException e) {

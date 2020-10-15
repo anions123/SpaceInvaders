@@ -19,7 +19,6 @@ public class Projectile extends GameObject {
 
     public Projectile(Position position, String ownerType) throws IOException {
         super(ImageIO.read(new FileInputStream("src/spaceinvaders/sprites/projectiles/missile.png")), position);
-        resizeSpriteIfBiggerThan(GameSettings.maxHalfWidth*2, GameSettings.maxHalfHeight*2);
         this.ownerType = ownerType;
         new Timer(GameSettings.gameDelay, new ProjectileTimerListener(this)).start();
     }
@@ -44,16 +43,18 @@ public class Projectile extends GameObject {
 
 class ProjectileTimerListener implements ActionListener{
     Projectile projectile;
+    GameRules gameRules;
 
     public ProjectileTimerListener(Projectile projectile){
         this.projectile = projectile;
+        gameRules = GameRules.getInstance();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        projectile.getPosition().translate(0, GameSettings.projectileSpeed * projectile.getPosition().getDirection_y());
-        boolean tester = GameRules.getInstance().projectileCollisionDetection(projectile);
-        if(projectile.getPosition().getY()<=0 || projectile.getPosition().getY() >= GameSettings.windowHeight || tester){
+        projectile.translatePosition(0, GameSettings.projectileSpeed * projectile.getDirection_Y());
+        boolean tester = gameRules.projectileCollisionDetection(projectile);
+        if(projectile.getPosition_X()<=0 || projectile.getPosition_Y() >= GameSettings.windowHeight || tester){
             projectile.setAliveProjectile(false);
             ((Timer)e.getSource()).stop();
         }

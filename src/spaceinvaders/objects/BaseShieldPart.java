@@ -16,14 +16,6 @@ public abstract class BaseShieldPart extends GameObject {
         this.currentLives = maxLives;
     }
 
-    public int getMaxLives() {
-        return maxLives;
-    }
-
-    public void setMaxLives(int maxLives) {
-        this.maxLives = maxLives;
-    }
-
     public int getCurrentLives() {
         return currentLives;
     }
@@ -39,8 +31,8 @@ public abstract class BaseShieldPart extends GameObject {
     @Override
     public void render(Graphics g){
         if(currentLives > 0){
-            g.drawImage(super.getSprite(), super.getPosition().getX(), super.getPosition().getY(), null);
-            g.drawString(currentLives+"/"+maxLives, super.getPosition().getX(), super.getPosition().getY());
+            g.drawImage(sprite, position.getX(), position.getY(), null);
+            g.drawString(currentLives+"/"+maxLives, position.getX(), position.getY());
         }
 
     }

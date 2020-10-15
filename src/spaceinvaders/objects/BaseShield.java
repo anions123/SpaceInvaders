@@ -25,8 +25,8 @@ public abstract class BaseShield implements Rendering {
     protected abstract void setupShield();
 
     public void addShieldPartByGrid(BaseShieldPart shieldPart, int grid_x, int grid_y){
-        shieldPart.getPosition().setX(position.getX() + grid_x * cellWidth);
-        shieldPart.getPosition().setY(position.getY() + grid_y * cellHeight);
+        shieldPart.setPosition_X(position.getX() + grid_x * cellWidth);
+        shieldPart.setPosition_Y(position.getY() + grid_y * cellHeight);
         //Resize part if its bigger than cell size
         shieldPart.resizeSpriteIfBiggerThan(cellWidth, cellHeight);
 

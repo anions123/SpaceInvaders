@@ -20,7 +20,7 @@ public abstract class BaseAlienGrid implements Rendering {
     private int alienColumnCount;
     private List<BaseAlienColumn> alienGird;
 
-    public BaseAlienGrid(BaseLevel level){
+    public BaseAlienGrid(){
         movementDirection = 1;
         alienColumnCount = setAlienColumnCount();
         alienGird = setAlienGrid();
@@ -40,15 +40,19 @@ public abstract class BaseAlienGrid implements Rendering {
     }
 
     public BaseAlienColumn getFarRightAliveColumn(){
+        BaseAlienColumn alienColumn;
         for(int i = alienGird.size() - 1; i>=0; i--){
-            if(alienGird.get(i).checkIfContainsAliveAliens())return alienGird.get(i);
+            alienColumn = alienGird.get(i);
+            if(alienColumn.checkIfContainsAliveAliens())return alienColumn;
         }
         return null;
     }
 
     public BaseAlienColumn getFarLeftAliveColumn(){
+        BaseAlienColumn alienColumn;
         for(int i = 0; i<alienGird.size(); i++){
-            if(alienGird.get(i).checkIfContainsAliveAliens())return alienGird.get(i);
+            alienColumn = alienGird.get(i);
+            if(alienColumn.checkIfContainsAliveAliens())return alienColumn;
         }
         return null;
     }
@@ -63,7 +67,7 @@ public abstract class BaseAlienGrid implements Rendering {
                     lowestAlien = temp;
                 }
                 else{
-                    if(temp.getPosition().getY() > lowestAlien.getPosition().getY()){
+                    if(temp.getPosition_Y() > lowestAlien.getPosition_Y()){
                         lowestAlien = temp;
                     }
                 }
@@ -72,7 +76,7 @@ public abstract class BaseAlienGrid implements Rendering {
         return lowestAlien;
     }
 
-    public BaseAlienColumn getRandomAliveColumn(){
+    private BaseAlienColumn getRandomAliveColumn(){
         List<BaseAlienColumn> tempColumn = alienGird.stream().filter(f->f.checkIfContainsAliveAliens()).collect(Collectors.toList());
         Random rand = new Random();
         return tempColumn.get(rand.nextInt(tempColumn.size()));
@@ -92,6 +96,14 @@ public abstract class BaseAlienGrid implements Rendering {
         return alienGird;
     }
 
+    //lod
+    public void shootAsRandomAlien() throws IOException {
+        BaseAlienColumn chosenColumn = getRandomAliveColumn();
+        BaseAlien lastAlien = chosenColumn.getLastAlive();
+        lastAlien.shoot();
+    }
+
+    @Override
     public void render(Graphics g) {
         for(BaseAlienColumn ac : alienGird){
             ac.render(g);
@@ -121,14 +133,15 @@ class GridTimerListener implements ActionListener{
 
     private void randomAlienShoot(){
         try {
-            alienGrid.getRandomAliveColumn().getLastAlive().shoot();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            alienGrid.shootAsRandomAlien();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     private void changeDirectionIfNeeded(BaseAlienColumn tempColumn){
-        if(tempColumn.getColumnPositionX() + GameSettings.maxHalfWidth * 2>= GameSettings.windowWidth ||
+        if(tempColumn.getColumnPositionX() + tempColumn.getWidthOfWidestAliveAlien()>= GameSettings.windowWidth ||
                 tempColumn.getColumnPositionX() <= 0){
             alienGrid.swapDirection();
             directionChangesLeft--;
@@ -152,7 +165,7 @@ class GridTimerListener implements ActionListener{
                 gameRules.setGameOn(false);
             }
             else{
-                if(lowestAlien.getPosition().getY() + lowestAlien.getSprite().getHeight() >= gameRules.getPlayer().getPosition().getY()){
+                if(lowestAlien.getPosition_Y() + lowestAlien.getSpriteHeight() >= gameRules.getPlayerPosition_Y()){
                     gameRules.setGameOn(false);
                 }
             }
@@ -164,8 +177,8 @@ class GridTimerListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(gameRules.isGameOn() && gameRules.getLevel().getAlienGrid() != null){
-            alienGrid = gameRules.getLevel().getAlienGrid();
+        if(gameRules.isGameOn() && gameRules.getAlienGrid() != null){
+            alienGrid = gameRules.getAlienGrid();
             //Checks which direction are aliens moving and gets either far left or far right column, based on direction
             BaseAlienColumn tempColumn = getSideAlienColumn();
             //Checks if there are any aliens left alive, if not ends the game

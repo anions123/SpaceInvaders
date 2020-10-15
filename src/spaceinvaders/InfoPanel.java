@@ -9,6 +9,7 @@ public class InfoPanel extends JPanel{
 
     private JLabel scoreLabel;
     private JLabel livesLabel;
+    private GameRules gameRules;
 
     public InfoPanel(){
         super.setBackground(GameSettings.backgroundColor);
@@ -19,14 +20,14 @@ public class InfoPanel extends JPanel{
         scoreLabel.setForeground(GameSettings.textColor);
         livesLabel.setFont(GameSettings.gameFont.deriveFont(Font.BOLD, 20));
         livesLabel.setForeground(GameSettings.textColor);
-
+        gameRules = GameRules.getInstance();
         super.add(scoreLabel);
         super.add(livesLabel);
 
     }
 
     public void updateValues(){
-        scoreLabel.setText("Score "+ GameRules.getInstance().getPlayer().getScore());
-        livesLabel.setText("Lives "+ GameRules.getInstance().getPlayer().getLivesLeft());
+        scoreLabel.setText("Score "+ gameRules.getScore());
+        livesLabel.setText("Lives "+ gameRules.getPlayerLivesLeft());
     }
 }

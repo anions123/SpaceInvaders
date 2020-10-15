@@ -1,12 +1,16 @@
 package spaceinvaders.scenes;
 
 import spaceinvaders.CollisionDetector;
+import spaceinvaders.misc.CollisionBox;
 import spaceinvaders.misc.Rendering;
 import spaceinvaders.objects.*;
+import spaceinvaders.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.objects.aliengrid.BaseAlienGrid;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseLevel implements Rendering {
     protected BaseAlienGrid alienGrid;
@@ -44,4 +48,41 @@ public abstract class BaseLevel implements Rendering {
         }
     }
 
+    //lod
+    public List<BaseAlienColumn> getAllAlienColumns(){
+        return alienGrid.getGrid();
+    }
+    public boolean isPlayerColliding(CollisionBox collisionBox){
+        return player.doCollide(collisionBox);
+    }
+    public void decPlayerLives(){
+        player.decLivesLeft();
+    }
+    public int getPlayerLivesLeft(){
+        return player.getLivesLeft();
+    }
+    public void translatePlayerPosition(int x, int y){
+        player.translatePosition(x, y);
+    }
+    public void setPlayerPosition_X(int x){
+        player.setPosition_X(x);
+    }
+    public void setPlayerPosition_Y(int y){
+        player.setPosition_Y(y);
+    }
+    public int getPlayerPosition_X(){
+        return player.getPosition_X();
+    }
+    public int getPlayerPosition_Y(){
+        return player.getPosition_Y();
+    }
+    public int getPlayerSprite_Width(){
+        return player.getSpriteWidth();
+    }
+    public int getPlayerSprite_Height(){
+        return player.getSpriteHeight();
+    }
+    public void shootAsPlayer() throws IOException {
+        player.shoot();
+    }
 }

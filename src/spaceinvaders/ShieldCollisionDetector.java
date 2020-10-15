@@ -14,9 +14,9 @@ public class ShieldCollisionDetector implements CollisionDetector{
     @Override
     public boolean process(Projectile projectile) {
         boolean tester;
-        for(BaseShield s : gameRules.getLevel().getShields()){
+        for(BaseShield s : gameRules.getShields()){
             for(BaseShieldPart sp : s.getShield()){
-                tester = sp.getCollisionBox().doCollide(projectile.getCollisionBox());
+                tester = sp.doCollide(projectile.getCollisionBox());
                 if(tester){
                     if(sp.getCurrentLives() > 0){
                         sp.decCurrentLives();

@@ -137,18 +137,18 @@ class GameTimerListener implements ActionListener{
             if(Main.LEFT || Main.RIGHT){
                 int left = Main.LEFT ? 1 : 0;
                 int right = Main.RIGHT ? 1 : 0;
-                gameRules.getPlayer().getPosition().translate(-GameSettings.playerSpeed* left +
+                gameRules.translatePlayerPosition(-GameSettings.playerSpeed* left +
                         GameSettings.playerSpeed*right, 0);
-                if(gameRules.getPlayer().getPosition().getX()< 0)
-                    gameRules.getPlayer().getPosition().setX(0);
-                if(gameRules.getPlayer().getPosition().getX() + gameRules.getPlayer().getSprite().getHeight() > GameSettings.windowWidth){
-                    gameRules.getPlayer().getPosition().setX(GameSettings.windowWidth - gameRules.getPlayer().getSprite().getWidth());
+                if(gameRules.getPlayerPosition_X()< 0)
+                    gameRules.setPlayerPosition_X(0);
+                if(gameRules.getPlayerPosition_X() + gameRules.getPlayerSprite_Height() > GameSettings.windowWidth){
+                    gameRules.setPlayerPosition_X(GameSettings.windowWidth - gameRules.getPlayerSprite_Width());
                 }
 
             }
             if(Main.SHOOTING){
                 try {
-                    gameRules.getPlayer().shoot();
+                    gameRules.shootAsPlayer();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

@@ -14,9 +14,9 @@ public class PlayerCollisionDetector implements CollisionDetector{
     public boolean process(Projectile projectile) {
         boolean tester;
         if(!projectile.getOwnerType().equals("player")){
-            tester = gameRules.getPlayer().getCollisionBox().doCollide(projectile.getCollisionBox());
+            tester = gameRules.isPlayerColliding(projectile.getCollisionBox());
             if(tester){
-                gameRules.getPlayer().decLivesLeft();
+                gameRules.decPlayerLives();
                 if(gameRules.isPlayerDead()){
                     gameRules.setGameOn(false);
                 }

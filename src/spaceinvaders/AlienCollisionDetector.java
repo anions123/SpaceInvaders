@@ -16,13 +16,13 @@ public class AlienCollisionDetector implements CollisionDetector{
     public boolean process(Projectile projectile) {
         boolean tester;
         if(!projectile.getOwnerType().equals("alien")){
-            for(BaseAlienColumn al : gameRules.getLevel().getAlienGrid().getGrid()){
+            for(BaseAlienColumn al : gameRules.getAllAlienColumns()){
                 for(BaseAlien a : al.getColumn()){
-                    tester = a.getCollisionBox().doCollide(projectile.getCollisionBox());
+                    tester = a.doCollide(projectile.getCollisionBox());
                     if(tester){
                         if(a.isAlive()){
                             a.setAlive(false);
-                            gameRules.getPlayer().addScore(a.getPoints());
+                            gameRules.addScore(a.getPoints());
                             return true;
                         }
                         else{

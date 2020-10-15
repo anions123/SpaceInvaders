@@ -6,34 +6,28 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class GameObject implements Rendering {
-    private BufferedImage sprite;
-    private Position position;
-    private CollisionBox collisionBox;
-
-    public GameObject(){
-        this.sprite = null;
-        this.position = new Position();
-        this.collisionBox = new CollisionBox(position);
-    }
+    protected BufferedImage sprite;
+    protected Position position;
+    protected CollisionBox collisionBox;
 
     public GameObject(BufferedImage sprite){
         this.sprite = sprite;
         this.position = new Position();
         this.collisionBox = new CollisionBox(sprite.getWidth(), sprite.getHeight(), position);
+        setupCenterOffset();
     }
 
     public GameObject(BufferedImage sprite, Position position){
         this.sprite = sprite;
         this.position = position;
         this.collisionBox = new CollisionBox(sprite.getWidth(), sprite.getHeight(), position);
+        setupCenterOffset();
     }
 
-    public GameObject(BufferedImage sprite, Position position, CollisionBox collisionBox){
-        this.sprite = sprite;
-        this.position = position;
-        this.collisionBox = collisionBox;
+    private void setupCenterOffset(){
+        position.setCenterOffset_x(sprite.getWidth()/2);
+        position.setCenterOffset_y(sprite.getHeight()/2);
     }
-
 
     public CollisionBox getCollisionBox(){return collisionBox;}
     public void setCollisionBox(CollisionBox collisionBox){this.collisionBox = collisionBox;}
@@ -64,6 +58,38 @@ public class GameObject implements Rendering {
         return position;
     }
     public void setPosition(Position position){this.position = position;}
+
+    //lod
+    public void setPosition_X(int x){
+        position.setX(x);
+    }
+    public void setPosition_Y(int y){
+        position.setY(y);
+    }
+    public int getPosition_X(){
+        return position.getX();
+    }
+    public int getPosition_Y(){
+        return position.getY();
+    }
+    public void translatePosition(int x, int y){
+        position.translate(x, y);
+    }
+    public int getDirection_Y(){
+        return position.getDirection_y();
+    }
+    public int getCenterOffset_x(){
+        return position.getCenterOffset_x();
+    }
+    public int getSpriteHeight(){
+        return sprite.getHeight();
+    }
+    public int getSpriteWidth(){
+        return sprite.getWidth();
+    }
+    public boolean doCollide(CollisionBox collisionBox){
+        return this.collisionBox.doCollide(collisionBox);
+    }
 
     @Override
     public void render(Graphics g) {

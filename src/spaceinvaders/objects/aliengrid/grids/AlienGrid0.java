@@ -10,17 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlienGrid0 extends BaseAlienGrid {
-    public AlienGrid0(BaseLevel level) {
-        super(level);
+    public AlienGrid0() {
+        super();
     }
 
     @Override
     protected List<BaseAlienColumn> setAlienGrid() {
         List<BaseAlienColumn> alienColumns = new ArrayList<>();
         int pos_x = 0;
+        BaseAlienColumn alienColumn;
         for(int i = 0; i < 11; i++){
-            alienColumns.add(new AlienColumn0());
-            alienColumns.get(i).setColumnPositionX(pos_x + i*(int)(GameSettings.maxHalfWidth*2.5));
+            alienColumn = new AlienColumn0();
+            alienColumns.add(alienColumn);
+            alienColumn.setColumnPositionX(pos_x + (int)(alienColumn.getWidthOfWidestAliveAlien()*1.25));
         }
         return alienColumns;
     }

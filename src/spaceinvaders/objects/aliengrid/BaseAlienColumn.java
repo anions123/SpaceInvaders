@@ -5,6 +5,7 @@ import spaceinvaders.objects.BaseAlien;
 
 import java.awt.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class BaseAlienColumn implements Rendering {
     private int alienCount;
@@ -22,12 +23,18 @@ public abstract class BaseAlienColumn implements Rendering {
     protected abstract int setAlienCount();
 
     public BaseAlien getLastAlive(){
+        BaseAlien alien;
         for (int j = alienColumn.size() - 1; j >= 0; j--) {
-            if(alienColumn.get(j).isAlive()){
-                return alienColumn.get(j);
+            alien = alienColumn.get(j);
+            if(alien.isAlive()){
+                return alien;
             }
         }
         return null;
+    }
+
+    private List<BaseAlien> getAllAliveAliens(){
+        return alienColumn.stream().filter(f->f.isAlive()).collect(Collectors.toList());
     }
 
     public boolean checkIfContainsAliveAliens(){
@@ -51,15 +58,29 @@ public abstract class BaseAlienColumn implements Rendering {
     public void setColumnPositionX(int x){
         columnPositionX = x;
         for(BaseAlien ba : alienColumn){
-            ba.getPosition().setX(x + ba.getPosition().getCenterOffset_x());
+            ba.setPosition_X(x + ba.getCenterOffset_x());
         }
     }
 
     public int getColumnPositionX(){return columnPositionX;}
 
+    public int getWidthOfWidestAliveAlien(){
+        List<BaseAlien> aliveAliens = getAllAliveAliens();
+        if(aliveAliens.isEmpty()){
+            return 0;
+        }
+        BaseAlien widest = aliveAliens.get(0);
+        for(BaseAlien ba : aliveAliens){
+            if(ba.getSpriteWidth() > widest.getSpriteWidth()){
+                widest = ba;
+            }
+        }
+        return widest.getSpriteWidth();
+    }
+
     public void moveColumn(int x, int y){
         columnPositionX +=x;
-        alienColumn.forEach(o -> o.getPosition().translate(x, y));
+        alienColumn.forEach(o -> o.translatePosition(x, y));
     }
 
     public void render(Graphics g) {

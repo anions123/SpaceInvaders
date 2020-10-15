@@ -16,13 +16,13 @@ public class CollisionBox {
     }
 
     public boolean doCollide(CollisionBox collider){
-        if(this.position.getX() >= collider.getPosition().getX()+collider.getWidth()||
-        collider.getPosition().getX() >= this.position.getX() + width){
+        if(this.position.getX() >= collider.getPosition_X()+collider.getWidth()||
+        collider.getPosition_X() >= this.position.getX() + width){
             return false;
         }
 
-        if(this.position.getY() <= collider.getPosition().getY()-collider.getHeight()||
-                collider.getPosition().getY() <= this.position.getY() - height){
+        if(this.position.getY() <= collider.getPosition_Y()-collider.getHeight()||
+                collider.getPosition_Y() <= this.position.getY() - height){
             return false;
         }
 
@@ -42,5 +42,13 @@ public class CollisionBox {
         this.width = width;
         this.height = height;
 
+    }
+
+    //lod
+    public int getPosition_X(){
+        return position.getX();
+    }
+    public int getPosition_Y(){
+        return position.getY();
     }
 }
