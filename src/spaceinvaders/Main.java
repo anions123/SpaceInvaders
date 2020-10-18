@@ -14,14 +14,12 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Main{
 
-    private GameTimerListener gameTimerListener;
+    private TimerController timerController;
     public static boolean LEFT, RIGHT, SHOOTING = false;
     private JFrame f_main;
     private GamePanel p_game;
     private InfoPanel p_info;
     private GameRules gameRules;
-
-    private BaseLevel level;
 
     public Main() throws IOException {
         //Setup custom font for game
@@ -34,12 +32,7 @@ public class Main{
             e.printStackTrace();
             GameSettings.gameFont = new Font("TimesRoman", Font.BOLD, 20);
         }
-
-        //level = new Level0();
-        //.setupLevel();
-        gameRules = GameRules.getInstance();
-        gameRules.initialize(new Level0());
-
+        gameRules = GameRules.getInstance(new Level0());
         p_game = new GamePanel();
         p_game.setPreferredSize(new Dimension(GameSettings.windowWidth, GameSettings.windowHeight - (int)(GameSettings.windowHeight*0.05)));
 
@@ -62,7 +55,6 @@ public class Main{
         p_game.getInputMap().put(KeyStroke.getKeyStroke("released A"), "leftOff");
         p_game.getInputMap().put(KeyStroke.getKeyStroke("pressed D"), "rightOn");
         p_game.getInputMap().put(KeyStroke.getKeyStroke("released D"), "rightOff");
-
         p_game.getInputMap().put(KeyStroke.getKeyStroke("released SPACE"), "shoot");
 
         p_game.getActionMap().put("leftOff", new AbstractAction() {
@@ -100,8 +92,10 @@ public class Main{
         });
 
         //Timer for game loop
-        gameTimerListener = new GameTimerListener(f_main, p_info);
-        new Timer(GameSettings.gameDelay, gameTimerListener).start();
+        //.setupLevel();
+
+        timerController = TimerController.getInstance(f_main, p_info);
+        timerController.startAllTimers();
 
 
     }
@@ -120,46 +114,3 @@ public class Main{
 }
 
 
-class GameTimerListener implements ActionListener{
-    private JFrame f_main;
-    private InfoPanel p_info;
-    private GameRules gameRules;
-
-    public GameTimerListener(JFrame f_main, InfoPanel p_info){
-        this.f_main = f_main;
-        this.p_info = p_info;
-        gameRules = GameRules.getInstance();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(f_main != null && f_main.isDisplayable() && gameRules.isGameOn()){
-            if(Main.LEFT || Main.RIGHT){
-                int left = Main.LEFT ? 1 : 0;
-                int right = Main.RIGHT ? 1 : 0;
-                gameRules.translatePlayerPosition(-GameSettings.playerSpeed* left +
-                        GameSettings.playerSpeed*right, 0);
-                if(gameRules.getPlayerPosition_X()< 0)
-                    gameRules.setPlayerPosition_X(0);
-                if(gameRules.getPlayerPosition_X() + gameRules.getPlayerSprite_Height() > GameSettings.windowWidth){
-                    gameRules.setPlayerPosition_X(GameSettings.windowWidth - gameRules.getPlayerSprite_Width());
-                }
-
-            }
-            if(Main.SHOOTING){
-                try {
-                    gameRules.shootAsPlayer();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-
-            }
-            Main.SHOOTING = false;
-            f_main.repaint();
-            p_info.updateValues();
-        }
-        else{
-            ((Timer)e.getSource()).stop();
-        }
-    }
-}

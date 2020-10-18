@@ -56,14 +56,13 @@ public class Player extends GameObject implements Shooting {
     }
 
 
+    //lod
     public int getLivesLeft() {
         return livesLeft;
     }
-
     public void setLivesLeft(int livesLeft) {
         this.livesLeft = livesLeft;
     }
-
     public void decLivesLeft() {
         this.livesLeft--;
     }

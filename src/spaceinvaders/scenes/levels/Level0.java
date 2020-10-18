@@ -31,11 +31,6 @@ public class Level0 extends BaseLevel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        collisionList = new ArrayList<>();
-        collisionList.add(new PlayerCollisionDetector());
-        collisionList.add(new AlienCollisionDetector());
-        collisionList.add(new ShieldCollisionDetector());
     }
 
 }

@@ -16,7 +16,6 @@ public abstract class BaseLevel implements Rendering {
     protected BaseAlienGrid alienGrid;
     protected Player player;
     protected ArrayList<BaseShield> shields;
-    protected ArrayList<CollisionDetector> collisionList;
 
     public BaseAlienGrid getAlienGrid(){
         return alienGrid;
@@ -35,9 +34,6 @@ public abstract class BaseLevel implements Rendering {
     }
     public ArrayList<BaseShield> getShields(){
         return shields;
-    }
-    public ArrayList<CollisionDetector> getCollisionList(){
-        return collisionList;
     }
 
     public void render(Graphics g){

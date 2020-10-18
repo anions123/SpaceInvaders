@@ -16,16 +16,22 @@ public class GameRules {
     private static BaseLevel level;
     private static boolean gameOn = true;
     private static int score;
+    private static CollisionDetectorFactory collisionDetectorFactory;
 
     private static GameRules instance = null;
 
-    public static void initialize(BaseLevel l){
+    private GameRules(BaseLevel l){
+        collisionDetectorFactory = new CollisionDetectorFactory();
         level = l;
     }
 
     public static GameRules getInstance(){
+        return instance;
+    }
+
+    public static GameRules getInstance(BaseLevel l){
         if(instance == null){
-            instance = new GameRules();
+            instance = new GameRules(l);
         }
         return instance;
     }
@@ -58,7 +64,7 @@ public class GameRules {
     }
 
     public boolean projectileCollisionDetection(Projectile projectile){
-        for(CollisionDetector cd : level.getCollisionList()){
+        for(CollisionDetector cd : collisionDetectorFactory.getCollisionDetectors()){
             if(cd.process(projectile)){
                 return true;
             }
