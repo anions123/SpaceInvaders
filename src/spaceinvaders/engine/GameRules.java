@@ -1,13 +1,12 @@
 package spaceinvaders.engine;
 
-import spaceinvaders.GameSettings;
-import spaceinvaders.engine.misc.KeybindingController;
 import spaceinvaders.engine.misc.TimerController;
 import spaceinvaders.resources.collisiondetectors.CollisionDetector;
 import spaceinvaders.engine.misc.CollisionDetectorFactory;
 import spaceinvaders.engine.object.CollisionBox;
 import spaceinvaders.resources.objects.BaseShield;
-import spaceinvaders.resources.objects.Player;
+import spaceinvaders.resources.objects.aliens.UFO;
+import spaceinvaders.resources.objects.player.Player;
 import spaceinvaders.resources.objects.Projectile;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienGrid;
@@ -21,13 +20,11 @@ public class GameRules {
     private BaseLevel level;
     private boolean gameOn = true;
     private int score;
-    private CollisionDetectorFactory collisionDetectorFactory;
 
     private static GameRules instance = null;
 
-    private GameRules(BaseLevel level, CollisionDetectorFactory cdf){
+    private GameRules(BaseLevel level){
         this.level = level;
-        this.collisionDetectorFactory = cdf;
     }
 
     public static GameRules getInstance(){
@@ -37,9 +34,9 @@ public class GameRules {
         return instance;
     }
 
-    public static GameRules getInstance(BaseLevel level, CollisionDetectorFactory cdf){
+    public static GameRules getInstance(BaseLevel level){
         if(instance == null){
-            instance = new GameRules(level, cdf);
+            instance = new GameRules(level);
         }
         return instance;
     }
@@ -71,14 +68,7 @@ public class GameRules {
         return false;
     }
 
-    public boolean projectileCollisionDetection(Projectile projectile){
-        for(CollisionDetector cd : collisionDetectorFactory.getCollisionDetectors()){
-            if(cd.process(projectile)){
-                return true;
-            }
-        }
-        return false;
-    }
+
 
 
 
@@ -99,6 +89,9 @@ public class GameRules {
     }
 
     //lod
+    public void setUFO(UFO ufo){
+        level.setUFO(ufo);
+    }
     public void resetGame(){
         level = level.resetLevel();
         TimerController.getInstance().startAllTimers();
@@ -118,6 +111,7 @@ public class GameRules {
     public boolean isPlayerColliding(CollisionBox collisionBox){
         return level.isPlayerColliding(collisionBox);
     }
+    public boolean isUFOColliding(CollisionBox collisionBox){return level.isUFOColliding(collisionBox);}
     public void decPlayerLives(){
         level.decPlayerLives();
     }
@@ -151,5 +145,7 @@ public class GameRules {
     public void shootAsPlayer() throws IOException {
         level.shootAsPlayer();
     }
-
+    public int getUFOPoints(){return level.getUFOPoints();}
+    public void setUFOAliveState(boolean alive){level.setUFOAliveState(alive);}
+    public boolean isUFONull(){return level.isUFONull();}
 }

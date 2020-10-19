@@ -1,4 +1,4 @@
-package spaceinvaders.resources.timerlisteners;
+package spaceinvaders.engine.timerlisteners;
 
 import spaceinvaders.GameSettings;
 import spaceinvaders.engine.GameRules;
@@ -11,13 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class GridTimerListener implements ActionListener {
+public class GridMovementTimerListener implements ActionListener {
     private int directionChangesLeft = 2;
     private GameRules gameRules;
     private BaseAlienGrid alienGrid;
     private GameSettings gameSettings;
 
-    public GridTimerListener(){
+    public GridMovementTimerListener(){
         gameSettings = GameSettings.getInstance();
         gameRules = GameRules.getInstance();
     }
@@ -33,14 +33,7 @@ public class GridTimerListener implements ActionListener {
         return tempColumn;
     }
 
-    private void randomAlienShoot(){
-        try {
-            alienGrid.shootAsRandomAlien();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
 
     private void changeDirectionIfNeeded(BaseAlienColumn tempColumn){
         if(tempColumn.getColumnPositionX() + tempColumn.getWidthOfWidestAliveAlien()>= gameSettings.getWindowWidth() ||
@@ -79,24 +72,17 @@ public class GridTimerListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(gameRules.isGameOn() && gameRules.getLevel() != null){
-            alienGrid = gameRules.getAlienGrid();
-            //Checks which direction are aliens moving and gets either far left or far right column, based on direction
-            BaseAlienColumn tempColumn = getSideAlienColumn();
-            //Checks if there are any aliens left alive, if not ends the game
-            if(tempColumn == null){
-                gameRules.resetGrid();
-            }
-            else{
-                randomAlienShoot();
-                moveAlienGrid(e);
-                changeDirectionIfNeeded(tempColumn);
-            }
+        alienGrid = gameRules.getAlienGrid();
+        //Checks which direction are aliens moving and gets either far left or far right column, based on direction
+        BaseAlienColumn tempColumn = getSideAlienColumn();
+        //Checks if there are any aliens left alive, if not ends the game
+        if(tempColumn == null){
+            gameRules.resetGrid();
         }
         else{
-            ((Timer)e.getSource()).stop();
+            moveAlienGrid(e);
+            changeDirectionIfNeeded(tempColumn);
         }
-
     }
 }
 

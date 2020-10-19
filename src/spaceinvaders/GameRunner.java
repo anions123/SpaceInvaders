@@ -13,13 +13,12 @@ import javax.swing.*;
 public class GameRunner {
 
     private TimerController timerController;
-    public static boolean LEFT, RIGHT, SHOOTING = false;
     private KeybindingController keybindingController;
     private GameRules gameRules;
     private WindowLoader windowLoader;
 
     public GameRunner() {
-        gameRules = GameRules.getInstance(new Level0(), new CollisionDetectorFactory());
+        gameRules = GameRules.getInstance(new Level0());
         windowLoader = new WindowLoader();
         windowLoader.initialize();
         timerController = TimerController.getInstance(windowLoader.getFMain(), windowLoader.getPInfo());

@@ -1,11 +1,11 @@
 package spaceinvaders.engine.misc;
 
 import spaceinvaders.GameSettings;
+import spaceinvaders.engine.timerlisteners.*;
+import spaceinvaders.resources.collisiondetectors.CollisionDetector;
+import spaceinvaders.resources.objects.aliens.UFO;
 import spaceinvaders.window.panels.InfoPanel;
 import spaceinvaders.resources.objects.Projectile;
-import spaceinvaders.resources.timerlisteners.GameTimerListener;
-import spaceinvaders.resources.timerlisteners.GridTimerListener;
-import spaceinvaders.resources.timerlisteners.ProjectileTimerListener;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ public class TimerController {
     private GameSettings gameSettings;
 
     private static TimerController timerController;
+
 
 
     private TimerController(JFrame f_main, InfoPanel p_info){
@@ -46,11 +47,19 @@ public class TimerController {
 
     private void setupBaseTimers(){
         timers.add(new Timer(gameSettings.getGameDelay(), new GameTimerListener(f_main, p_info)));
-        timers.add(new Timer(gameSettings.getGridDelay(), new GridTimerListener()));
+        timers.add(new Timer(gameSettings.getGridDelay(), new GridMovementTimerListener()));
+        timers.add(new Timer(gameSettings.getGridShootDelay(), new GridShootingTimerListener()));
+        timers.add(new Timer(gameSettings.getUfoSpawnDelay(), new UFOSpawnTimerListener()));
     }
 
     public void newProjectile(Projectile projectile){
-        Timer timer = new Timer(gameSettings.getProjectileSpeed(), new ProjectileTimerListener(projectile));
+        Timer timer = new Timer(gameSettings.getGameDelay(), new ProjectileTimerListener(projectile));
+        timer.start();
+        timers.add(timer);
+    }
+
+    public void newUFO(UFO ufo){
+        Timer timer = new Timer(gameSettings.getGameDelay(), new UFOMovementTimerListener(ufo));
         timer.start();
         timers.add(timer);
     }
@@ -87,4 +96,6 @@ public class TimerController {
             }
         }
     }
+
+
 }

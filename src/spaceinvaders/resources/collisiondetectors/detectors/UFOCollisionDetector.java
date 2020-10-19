@@ -4,26 +4,26 @@ import spaceinvaders.engine.GameRules;
 import spaceinvaders.resources.collisiondetectors.CollisionDetector;
 import spaceinvaders.resources.objects.Projectile;
 
-public class PlayerCollisionDetector implements CollisionDetector {
-
+public class UFOCollisionDetector implements CollisionDetector {
     private GameRules gameRules;
 
-    public PlayerCollisionDetector(){
+    public UFOCollisionDetector(){
         gameRules = GameRules.getInstance();
     }
 
     @Override
     public boolean process(Projectile projectile) {
-        if(!projectile.getOwnerType().equals("player")){
+        if(projectile.getOwnerType().equals("player")){
             boolean tester;
-            tester = gameRules.isPlayerColliding(projectile.getCollisionBox());
-            if(tester){
-                gameRules.decPlayerLives();
-                if(gameRules.isPlayerDead()){
-                    gameRules.setGameOn(false);
+            if(!gameRules.isUFONull()){
+                tester = gameRules.isUFOColliding(projectile.getCollisionBox());
+                if(tester){
+                    gameRules.addScore(gameRules.getUFOPoints());
+                    gameRules.setUFOAliveState(false);
+                    return true;
                 }
-                return true;
             }
+
         }
         return false;
     }

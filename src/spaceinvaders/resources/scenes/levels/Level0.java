@@ -3,8 +3,7 @@ package spaceinvaders.resources.scenes.levels;
 import spaceinvaders.GameSettings;
 import spaceinvaders.resources.objects.aliengrid.grids.AlienGrid0;
 import spaceinvaders.engine.object.Position;
-import spaceinvaders.resources.objects.Player;
-import spaceinvaders.resources.objects.aliengrid.grids.AlienGrid1;
+import spaceinvaders.resources.objects.player.Player;
 import spaceinvaders.resources.objects.shields.fortress.FortressShield;
 import spaceinvaders.resources.scenes.BaseLevel;
 

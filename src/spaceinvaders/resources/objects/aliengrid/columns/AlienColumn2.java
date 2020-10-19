@@ -16,7 +16,7 @@ public class AlienColumn2 extends BaseAlienColumn {
     protected List<BaseAlien> setAlienColumn() {
         List<BaseAlien> alienColumn = new ArrayList<>();
         try {
-            int y_pos = 0;
+            int y_pos = 100;
             alienColumn.add(new BigAlien(new Position(0, y_pos, 1)));
             alienColumn.add(new MediumAlien(new Position(0, y_pos + 50, 1)));
             alienColumn.add(new BigAlien(new Position(0, y_pos + 100, 1)));

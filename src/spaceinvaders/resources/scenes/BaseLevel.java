@@ -5,7 +5,8 @@ import spaceinvaders.engine.object.Rendering;
 import spaceinvaders.resources.objects.*;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienGrid;
-import spaceinvaders.resources.scenes.levels.Level0;
+import spaceinvaders.resources.objects.aliens.UFO;
+import spaceinvaders.resources.objects.player.Player;
 
 import java.awt.*;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public abstract class BaseLevel implements Rendering {
     protected BaseAlienGrid alienGrid;
     protected Player player;
     protected ArrayList<BaseShield> shields;
+    protected UFO ufo;
 
     public BaseLevel(BaseAlienGrid alienGrid){
         this.alienGrid = alienGrid;
@@ -47,11 +49,17 @@ public abstract class BaseLevel implements Rendering {
         for(BaseShield s : shields){
             s.render(g);
         }
+        if(ufo != null){
+            if(ufo.isAlive()){
+                ufo.render(g);
+            }
+        }
     }
 
     //lod
     public abstract void resetGrid();
     public abstract BaseLevel resetLevel();
+    public void setUFO(UFO ufo){this.ufo = ufo;}
     public List<BaseAlienColumn> getAllAlienColumns(){
         return alienGrid.getGrid();
     }
@@ -87,5 +95,21 @@ public abstract class BaseLevel implements Rendering {
     }
     public void shootAsPlayer() throws IOException {
         player.shoot();
+    }
+    public boolean isUFOColliding(CollisionBox collisionBox){
+        return ufo.doCollide(collisionBox);
+    }
+    public int getUFOPoints(){
+        return ufo.getPoints();
+    };
+
+    public void setUFOAliveState(boolean alive){
+        ufo.setAlive(alive);
+    }
+    public boolean isUFONull(){
+        if(ufo == null){
+            return true;
+        }
+        return false;
     }
 }

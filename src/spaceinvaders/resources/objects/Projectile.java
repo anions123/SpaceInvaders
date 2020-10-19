@@ -11,13 +11,11 @@ import java.io.IOException;
 public class Projectile extends GameObject {
     private String ownerType;
     private boolean aliveProjectile = true;
-    private TimerController timerController;
 
     public Projectile(Position position, String ownerType) throws IOException {
         super(ImageIO.read(new FileInputStream("src/spaceinvaders/resources/sprites/projectiles/missile.png")), position);
         this.ownerType = ownerType;
-        timerController = TimerController.getInstance();
-        timerController.newProjectile(this);
+        TimerController.getInstance().newProjectile(this);
     }
 
 

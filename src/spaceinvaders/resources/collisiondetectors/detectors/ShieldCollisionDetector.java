@@ -9,9 +9,12 @@ import spaceinvaders.resources.objects.Projectile;
 public class ShieldCollisionDetector implements CollisionDetector {
     private GameRules gameRules;
 
+    public ShieldCollisionDetector(){
+        gameRules = GameRules.getInstance();
+    }
+
     @Override
     public boolean process(Projectile projectile) {
-        gameRules = GameRules.getInstance();
         boolean tester;
         for(BaseShield s : gameRules.getShields()){
             for(BaseShieldPart sp : s.getShield()){

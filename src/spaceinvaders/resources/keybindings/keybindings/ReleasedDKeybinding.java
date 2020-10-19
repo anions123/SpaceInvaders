@@ -2,6 +2,7 @@ package spaceinvaders.resources.keybindings.keybindings;
 
 import spaceinvaders.GameRunner;
 import spaceinvaders.resources.keybindings.Keybinding;
+import spaceinvaders.resources.objects.player.PlayerControlls;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,7 @@ public class ReleasedDKeybinding implements Keybinding {
         component.getActionMap().put("rightOff", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameRunner.RIGHT = false;
+                PlayerControlls.getInstance().setRight(false);
             }
         });
     }

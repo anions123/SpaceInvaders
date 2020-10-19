@@ -1,9 +1,10 @@
-package spaceinvaders.resources.objects;
+package spaceinvaders.resources.objects.player;
 
 import spaceinvaders.GameSettings;
 import spaceinvaders.engine.object.GameObject;
 import spaceinvaders.engine.object.Position;
 import spaceinvaders.engine.object.Shooting;
+import spaceinvaders.resources.objects.Projectile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

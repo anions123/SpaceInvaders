@@ -6,16 +6,19 @@ public class GameSettings {
 
     private int windowWidth = 1280;
     private int windowHeight = 960;
-    private int score = 0;
+    private int highScore = 0;
     private int livesLeft = 3;
     private int playerSpeed = 10;
-    private int projectileSpeed = 10;
+    private int projectileSpeed = 8;
+    private int ufoSpeed = 2;
     private Font gameFont;
     private Color backgroundColor = Color.black;
     private Color textColor = Color.green;
     private int gridDelay = 500;
     private int gridDelayDecay = 50;
     private int gameDelay = 8;
+    private int gridShootDelay = 500;
+    private int ufoSpawnDelay = 10000;
     private int gridMoveHorizontalSpacing = 16;
     private int gridMoveVerticalSpacing = 64;
 
@@ -29,6 +32,8 @@ public class GameSettings {
         }
         return instance;
     }
+
+
 
     public int getWindowWidth() {
         return windowWidth;
@@ -46,12 +51,12 @@ public class GameSettings {
         this.windowHeight = windowHeight;
     }
 
-    public int getScore() {
-        return score;
+    public int getHighScore() {
+        return highScore;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
     }
 
     public int getLivesLeft() {
@@ -141,5 +146,29 @@ public class GameSettings {
 
     public void setGridMoveVerticalSpacing(int gridMoveVerticalSpacing) {
         this.gridMoveVerticalSpacing = gridMoveVerticalSpacing;
+    }
+
+    public int getUfoSpeed() {
+        return ufoSpeed;
+    }
+
+    public void setUfoSpeed(int ufoSpeed) {
+        this.ufoSpeed = ufoSpeed;
+    }
+
+    public int getGridShootDelay() {
+        return gridShootDelay;
+    }
+
+    public void setGridShootDelay(int gridShootDelay) {
+        this.gridShootDelay = gridShootDelay;
+    }
+
+    public int getUfoSpawnDelay() {
+        return ufoSpawnDelay;
+    }
+
+    public void setUfoSpawnDelay(int ufoSpawnDelay) {
+        this.ufoSpawnDelay = ufoSpawnDelay;
     }
 }

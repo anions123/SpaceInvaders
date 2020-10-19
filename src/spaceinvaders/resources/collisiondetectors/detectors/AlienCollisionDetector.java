@@ -10,11 +10,14 @@ public class AlienCollisionDetector implements CollisionDetector {
 
     private GameRules gameRules;
 
+    public AlienCollisionDetector(){
+        gameRules = GameRules.getInstance();
+    }
+
     @Override
     public boolean process(Projectile projectile) {
-        gameRules = GameRules.getInstance();
-        boolean tester;
         if(!projectile.getOwnerType().equals("alien")){
+            boolean tester;
             for(BaseAlienColumn al : gameRules.getAllAlienColumns()){
                 for(BaseAlien a : al.getColumn()){
                     tester = a.doCollide(projectile.getCollisionBox());
