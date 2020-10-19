@@ -77,7 +77,7 @@ public abstract class BaseAlienGrid implements Rendering {
 
 
 
-    public void moveGrid(int x, int y, double speed){
+    public void moveGrid(int x, int y){
         alienGird.forEach(o -> o.moveColumn(x, y));
     }
 

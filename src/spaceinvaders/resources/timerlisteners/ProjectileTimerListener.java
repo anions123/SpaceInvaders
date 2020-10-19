@@ -11,17 +11,19 @@ import java.awt.event.ActionListener;
 public class ProjectileTimerListener implements ActionListener {
     Projectile projectile;
     GameRules gameRules;
+    GameSettings gameSettings;
 
     public ProjectileTimerListener(Projectile projectile){
+        gameSettings = GameSettings.getInstance();
         this.projectile = projectile;
         gameRules = GameRules.getInstance();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        projectile.translatePosition(0, GameSettings.projectileSpeed * projectile.getDirection_Y());
+        projectile.translatePosition(0, gameSettings.getProjectileSpeed() * projectile.getDirection_Y());
         boolean tester = gameRules.projectileCollisionDetection(projectile);
-        if(projectile.getPosition_Y()<=0 || projectile.getPosition_Y() >= GameSettings.windowHeight || tester){
+        if(projectile.getPosition_Y()<=0 || projectile.getPosition_Y() >= gameSettings.getWindowHeight() || tester){
             projectile.setAliveProjectile(false);
             ((Timer)e.getSource()).stop();
         }

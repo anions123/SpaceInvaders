@@ -5,6 +5,7 @@ import spaceinvaders.engine.object.Rendering;
 import spaceinvaders.resources.objects.*;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienGrid;
+import spaceinvaders.resources.scenes.levels.Level0;
 
 import java.awt.*;
 import java.io.IOException;
@@ -49,6 +50,8 @@ public abstract class BaseLevel implements Rendering {
     }
 
     //lod
+    public abstract void resetGrid();
+    public abstract BaseLevel resetLevel();
     public List<BaseAlienColumn> getAllAlienColumns(){
         return alienGrid.getGrid();
     }

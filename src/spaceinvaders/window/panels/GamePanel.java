@@ -9,9 +9,11 @@ import java.awt.*;
 public class GamePanel extends JPanel{
 
     private GameRules gameRules;
+    private GameSettings gameSettings;
 
     public GamePanel(){
-        super.setBackground(GameSettings.backgroundColor);
+        gameSettings = GameSettings.getInstance();
+        setBackground(gameSettings.getBackgroundColor());
         gameRules = GameRules.getInstance();
     }
 

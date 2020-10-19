@@ -13,13 +13,17 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TimerController {
-    private static List<Timer> timers;
-    private static JFrame f_main;
-    private static InfoPanel p_info;
-    private static boolean pause = false;
+    private List<Timer> timers;
+    private JFrame f_main;
+    private InfoPanel p_info;
+    private boolean pause = false;
+    private GameSettings gameSettings;
+
     private static TimerController timerController;
 
+
     private TimerController(JFrame f_main, InfoPanel p_info){
+        gameSettings = GameSettings.getInstance();
         timers = new ArrayList<>();
         this.f_main = f_main;
         this.p_info = p_info;
@@ -41,12 +45,12 @@ public class TimerController {
     }
 
     private void setupBaseTimers(){
-        timers.add(new Timer(GameSettings.gameDelay, new GameTimerListener(f_main, p_info)));
-        timers.add(new Timer(GameSettings.gridDelay, new GridTimerListener()));
+        timers.add(new Timer(gameSettings.getGameDelay(), new GameTimerListener(f_main, p_info)));
+        timers.add(new Timer(gameSettings.getGridDelay(), new GridTimerListener()));
     }
 
     public void newProjectile(Projectile projectile){
-        Timer timer = new Timer(GameSettings.projectileSpeed, new ProjectileTimerListener(projectile));
+        Timer timer = new Timer(gameSettings.getProjectileSpeed(), new ProjectileTimerListener(projectile));
         timer.start();
         timers.add(timer);
     }

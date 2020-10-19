@@ -58,7 +58,7 @@ public abstract class BaseAlienColumn implements Rendering {
     public void setColumnPositionX(int x){
         columnPositionX = x;
         for(BaseAlien ba : alienColumn){
-            ba.setPosition_X(x + ba.getCenterOffset_x());
+            ba.setPosition_X(x + getWidthOfWidestAliveAlien()/2 - ba.getCenterOffset_x());
         }
     }
 

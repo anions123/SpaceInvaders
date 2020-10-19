@@ -17,8 +17,7 @@ public class Player extends GameObject implements Shooting {
 
     public Player(Position position) throws IOException {
         super(ImageIO.read(new FileInputStream("src/spaceinvaders/resources/sprites/players/player.png")), position);
-        resizeSpriteIfBiggerThan(GameSettings.maxHalfWidth*2, GameSettings.maxHalfHeight*2);
-        livesLeft = GameSettings.livesLeft;
+        livesLeft = GameSettings.getInstance().getLivesLeft();
     }
 
     @Override

@@ -15,8 +15,10 @@ public class GridTimerListener implements ActionListener {
     private int directionChangesLeft = 2;
     private GameRules gameRules;
     private BaseAlienGrid alienGrid;
+    private GameSettings gameSettings;
 
     public GridTimerListener(){
+        gameSettings = GameSettings.getInstance();
         gameRules = GameRules.getInstance();
     }
 
@@ -41,7 +43,7 @@ public class GridTimerListener implements ActionListener {
     }
 
     private void changeDirectionIfNeeded(BaseAlienColumn tempColumn){
-        if(tempColumn.getColumnPositionX() + tempColumn.getWidthOfWidestAliveAlien()>= GameSettings.windowWidth ||
+        if(tempColumn.getColumnPositionX() + tempColumn.getWidthOfWidestAliveAlien()>= gameSettings.getWindowWidth() ||
                 tempColumn.getColumnPositionX() <= 0){
             alienGrid.swapDirection();
             directionChangesLeft--;
@@ -49,15 +51,15 @@ public class GridTimerListener implements ActionListener {
     }
 
     private void changeTimerDelay(ActionEvent e){
-        if(GameSettings.gridDelay>GameSettings.gridDelayDecay){
-            GameSettings.gridDelay-= GameSettings.gridDelayDecay;
-            ((Timer)e.getSource()).setDelay(GameSettings.gridDelay);
+        if(gameSettings.getGridDelay()>gameSettings.getGridDelayDecay()){
+            gameSettings.setGridDelay(gameSettings.getGridDelay()-gameSettings.getGridDelayDecay());
+            ((Timer)e.getSource()).setDelay(gameSettings.getGridDelay());
         }
     }
 
     private void moveAlienGrid(ActionEvent e){
         if(directionChangesLeft<=0){
-            alienGrid.moveGrid(0,GameSettings.maxHalfHeight*2,1);
+            alienGrid.moveGrid(0,gameSettings.getGridMoveVerticalSpacing());
             changeTimerDelay(e);
             directionChangesLeft = 2;
             BaseAlien lowestAlien = alienGrid.getLowestAlienInGrid();
@@ -71,7 +73,7 @@ public class GridTimerListener implements ActionListener {
             }
         }
         else{
-            alienGrid.moveGrid(GameSettings.maxHalfWidth*2/3 *alienGrid.getMovementDirection(),0,1);
+            alienGrid.moveGrid(gameSettings.getGridMoveHorizontalSpacing() *alienGrid.getMovementDirection(),0);
         }
     }
 
@@ -83,13 +85,12 @@ public class GridTimerListener implements ActionListener {
             BaseAlienColumn tempColumn = getSideAlienColumn();
             //Checks if there are any aliens left alive, if not ends the game
             if(tempColumn == null){
-                gameRules.setGameOn(false);
+                gameRules.resetGrid();
             }
             else{
                 randomAlienShoot();
-                //Checks if gird has reach the end of window, if so it changes movement direction
-                changeDirectionIfNeeded(tempColumn);
                 moveAlienGrid(e);
+                changeDirectionIfNeeded(tempColumn);
             }
         }
         else{

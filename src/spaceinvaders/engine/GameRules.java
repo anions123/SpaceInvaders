@@ -1,5 +1,8 @@
 package spaceinvaders.engine;
 
+import spaceinvaders.GameSettings;
+import spaceinvaders.engine.misc.KeybindingController;
+import spaceinvaders.engine.misc.TimerController;
 import spaceinvaders.resources.collisiondetectors.CollisionDetector;
 import spaceinvaders.engine.misc.CollisionDetectorFactory;
 import spaceinvaders.engine.object.CollisionBox;
@@ -76,6 +79,9 @@ public class GameRules {
         }
         return false;
     }
+
+
+
     public BaseLevel getLevel() {
         return level;
     }
@@ -93,6 +99,16 @@ public class GameRules {
     }
 
     //lod
+    public void resetGame(){
+        level = level.resetLevel();
+        TimerController.getInstance().startAllTimers();
+        score = 0;
+        gameOn = true;
+    }
+    public void resetGrid(){
+        level.resetGrid();
+
+    }
     public BaseAlienGrid getAlienGrid(){
         return level.getAlienGrid();
     }

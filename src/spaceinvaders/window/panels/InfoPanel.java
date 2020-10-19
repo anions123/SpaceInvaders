@@ -11,19 +11,21 @@ public class InfoPanel extends JPanel{
     private JLabel scoreLabel;
     private JLabel livesLabel;
     private GameRules gameRules;
+    private GameSettings gameSettings;
 
     public InfoPanel(){
-        super.setBackground(GameSettings.backgroundColor);
-        super.setLayout(new GridLayout(1,2));
-        scoreLabel = new JLabel("Score "+ GameSettings.score, JLabel.LEFT);
-        livesLabel = new JLabel("Lives "+ GameSettings.livesLeft, JLabel.RIGHT);
-        scoreLabel.setFont(GameSettings.gameFont.deriveFont(Font.BOLD, 20));
-        scoreLabel.setForeground(GameSettings.textColor);
-        livesLabel.setFont(GameSettings.gameFont.deriveFont(Font.BOLD, 20));
-        livesLabel.setForeground(GameSettings.textColor);
+        gameSettings = GameSettings.getInstance();
+        setBackground(gameSettings.getBackgroundColor());
+        setLayout(new GridLayout(1,2));
+        scoreLabel = new JLabel("Score "+ gameSettings.getScore(), JLabel.LEFT);
+        livesLabel = new JLabel("Lives "+ gameSettings.getLivesLeft(), JLabel.RIGHT);
+        scoreLabel.setFont(gameSettings.getGameFont().deriveFont(Font.BOLD, 20));
+        scoreLabel.setForeground(gameSettings.getTextColor());
+        livesLabel.setFont(gameSettings.getGameFont().deriveFont(Font.BOLD, 20));
+        livesLabel.setForeground(gameSettings.getTextColor());
         gameRules = GameRules.getInstance();
-        super.add(scoreLabel);
-        super.add(livesLabel);
+        add(scoreLabel);
+        add(livesLabel);
 
     }
 

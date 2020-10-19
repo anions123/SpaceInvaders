@@ -1,6 +1,7 @@
 package spaceinvaders.resources.scenes.levels;
 
 import spaceinvaders.GameSettings;
+import spaceinvaders.resources.objects.aliengrid.grids.AlienGrid0;
 import spaceinvaders.resources.objects.aliengrid.grids.AlienGrid1;
 import spaceinvaders.engine.object.Position;
 import spaceinvaders.resources.objects.Player;
@@ -11,22 +12,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Level1 extends BaseLevel {
-    private static int playerPosition_y = (int)(GameSettings.windowHeight * 0.8);
+    private int playerPosition_y;
+    private GameSettings gameSettings;
 
     public Level1(){
         super(new AlienGrid1());
-
+        gameSettings = GameSettings.getInstance();
+        playerPosition_y = (int)(gameSettings.getWindowHeight() * 0.8);
         shields = new ArrayList<>();
-        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.1), (int)(GameSettings.windowHeight*0.6), -1)));
-        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.30), (int)(GameSettings.windowHeight*0.6), -1)));
-        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.50), (int)(GameSettings.windowHeight*0.6), -1)));
-        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.75), (int)(GameSettings.windowHeight*0.6), -1)));
-        shields.add(new FortressShield(new Position((int)(GameSettings.windowWidth * 0.9), (int)(GameSettings.windowHeight*0.6), -1)));
+        shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.1), (int)(gameSettings.getWindowHeight()*0.6))));
+        shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.30), (int)(gameSettings.getWindowHeight()*0.6))));
+        shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.50), (int)(gameSettings.getWindowHeight()*0.6))));
+        shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.75), (int)(gameSettings.getWindowHeight()*0.6))));
+        shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.9), (int)(gameSettings.getWindowHeight()*0.6))));
 
         try {
-            player = new Player(new Position(GameSettings.windowWidth/2,playerPosition_y, -1));
+            player = new Player(new Position(gameSettings.getWindowWidth()/2,playerPosition_y, -1));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void resetGrid() {
+        alienGrid = new AlienGrid1();
+    }
+
+    @Override
+    public BaseLevel resetLevel(){
+        return new Level1();
     }
 }
