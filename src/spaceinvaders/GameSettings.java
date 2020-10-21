@@ -17,7 +17,7 @@ public class GameSettings {
     private int gridDelay = 500;
     private int gridDelayDecay = 50;
     private int gameDelay = 8;
-    private int gridShootDelay = 500;
+    private int gridShootDelay = 1000;
     private int ufoSpawnDelay = 10000;
     private int gridMoveHorizontalSpacing = 16;
     private int gridMoveVerticalSpacing = 64;

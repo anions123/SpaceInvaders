@@ -70,6 +70,12 @@ public class PlayerControlls {
         }
     }
 
+    public void resetControlls(){
+        Left = false;
+        Right = false;
+        Shoot = false;
+    }
+
     public void setLeft(boolean left) {
         Left = left;
     }

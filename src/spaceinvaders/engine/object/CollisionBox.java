@@ -5,9 +5,6 @@ public class CollisionBox {
     private int height;
     private Position position;
 
-    public CollisionBox(Position position){
-        this.position = position;
-    }
 
     public CollisionBox(int width, int height, Position position){
         this.width = width;

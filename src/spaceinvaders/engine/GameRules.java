@@ -1,5 +1,6 @@
 package spaceinvaders.engine;
 
+import spaceinvaders.GameSettings;
 import spaceinvaders.engine.misc.TimerController;
 import spaceinvaders.resources.collisiondetectors.CollisionDetector;
 import spaceinvaders.engine.misc.CollisionDetectorFactory;
@@ -10,6 +11,7 @@ import spaceinvaders.resources.objects.player.Player;
 import spaceinvaders.resources.objects.Projectile;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienColumn;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienGrid;
+import spaceinvaders.resources.objects.player.PlayerControlls;
 import spaceinvaders.resources.scenes.BaseLevel;
 
 import java.awt.*;
@@ -62,7 +64,7 @@ public class GameRules {
     }
 
     public boolean isPlayerDead(){
-        if(getPlayer().getLivesLeft() <= 0){
+        if(level.getPlayerLivesLeft() <= 0){
             return true;
         }
         return false;
@@ -95,6 +97,8 @@ public class GameRules {
     public void resetGame(){
         level = level.resetLevel();
         TimerController.getInstance().startAllTimers();
+        PlayerControlls.getInstance().resetControlls();
+        GameSettings.getInstance().setGridDelay(500);
         score = 0;
         gameOn = true;
     }
@@ -127,6 +131,7 @@ public class GameRules {
     public int getPlayerLivesLeft(){
         return level.getPlayerLivesLeft();
     }
+    public void setPlayerLivesLeft(int lives){level.setPlayerLivesLeft(lives);}
     public void translatePlayerPosition(int x, int y){
         level.translatePlayerPosition(x, y);
     }

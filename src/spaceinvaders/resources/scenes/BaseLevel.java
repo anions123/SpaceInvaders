@@ -72,6 +72,7 @@ public abstract class BaseLevel implements Rendering {
     public int getPlayerLivesLeft(){
         return player.getLivesLeft();
     }
+    public void setPlayerLivesLeft(int lives){player.setLivesLeft(lives);}
     public void translatePlayerPosition(int x, int y){
         player.translatePosition(x, y);
     }

@@ -42,7 +42,7 @@ public class GameObject implements Rendering {
             int h = sprite.getHeight();
             width = Math.min(w, width);
             height = Math.min(h, height);
-            BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+            BufferedImage after = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             AffineTransform at = new AffineTransform();
             at.scale((double)width/w, (double)height/h);
             AffineTransformOp scaleOp =

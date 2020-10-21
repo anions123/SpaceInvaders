@@ -97,5 +97,13 @@ public class TimerController {
         }
     }
 
+    public boolean getPause(){
+        return pause;
+    }
+
+    public void setPause(boolean state){
+        pause = state;
+    }
+
 
 }
