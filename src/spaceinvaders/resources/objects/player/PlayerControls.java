@@ -69,7 +69,7 @@ public class PlayerControls {
         }
     }
 
-    public void resetControlls(){
+    public void resetControls(){
         Left = false;
         Right = false;
         Shoot = false;

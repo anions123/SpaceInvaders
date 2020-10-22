@@ -94,14 +94,16 @@ public class GameRules {
     public void resetGame(){
         level = level.resetLevel();
         TimerController.getInstance().startAllTimers();
-        PlayerControls.getInstance().resetControlls();
+        PlayerControls.getInstance().resetControls();
         GameSettings.getInstance().setGridDelay(500);
         score = 0;
         gameOn = true;
     }
     public void resetGrid(){
         level.resetGrid();
-
+        TimerController.getInstance().startAllTimers();
+        PlayerControls.getInstance().resetControls();
+        GameSettings.getInstance().setGridDelay(500);
     }
     public BaseAlienGrid getAlienGrid(){
         return level.getAlienGrid();
