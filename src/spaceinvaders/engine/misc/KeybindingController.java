@@ -10,11 +10,9 @@ import java.util.List;
 public class KeybindingController {
     private JComponent component;
     private List<Keybinding> keybindings;
-    private TimerController timerController;
 
-    public KeybindingController(JComponent component, TimerController timerController){
+    public KeybindingController(JComponent component){
         this.component = component;
-        this.timerController = timerController;
         keybindings = new ArrayList<>();
     }
 

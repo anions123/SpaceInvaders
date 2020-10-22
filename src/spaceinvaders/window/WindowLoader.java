@@ -10,25 +10,25 @@ import java.io.File;
 import java.io.IOException;
 
 public class WindowLoader {
-    private JFrame f_main;
-    private GamePanel p_game;
-    private InfoPanel p_info;
+    private JFrame fMain;
+    private GamePanel pGame;
+    private InfoPanel pInfo;
     private GameSettings gameSettings;
     private double panelProportion = 0.05;
 
     public WindowLoader(){
         gameSettings = GameSettings.getInstance();
         setupFont();
-        f_main = new JFrame("SpaceInvaders");
-        p_game = new GamePanel();
-        p_info = new InfoPanel();
+        fMain = new JFrame("SpaceInvaders");
+        pGame = new GamePanel();
+        pInfo = new InfoPanel();
     }
 
     public void initialize(){
         setupPGame();
         setupPInfo();
         setupFMain();
-        p_game.requestFocus();
+        pGame.requestFocus();
     }
 
     private void setupFont(){
@@ -44,46 +44,46 @@ public class WindowLoader {
     }
 
     private void setupPInfo(){
-        p_info.setPreferredSize(new Dimension(gameSettings.getWindowWidth(), (int) (gameSettings.getWindowHeight() * panelProportion)));
+        pInfo.setPreferredSize(new Dimension(gameSettings.getWindowWidth(), (int) (gameSettings.getWindowHeight() * panelProportion)));
     }
 
     private void setupPGame(){
-        p_game.setPreferredSize(new Dimension(gameSettings.getWindowWidth(), gameSettings.getWindowHeight() - (int) (gameSettings.getWindowWidth() * panelProportion)));
+        pGame.setPreferredSize(new Dimension(gameSettings.getWindowWidth(), gameSettings.getWindowHeight() - (int) (gameSettings.getWindowWidth() * panelProportion)));
     }
 
     private void setupFMain(){
-        f_main.setPreferredSize(new Dimension(gameSettings.getWindowWidth(), gameSettings.getWindowHeight()));
-        f_main.setResizable(false);
-        f_main.setLayout(new BoxLayout(f_main.getContentPane(), BoxLayout.Y_AXIS));
-        f_main.add(p_info);
-        f_main.add(p_game);
-        f_main.setVisible(true);
-        f_main.pack();
-        f_main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        fMain.setPreferredSize(new Dimension(gameSettings.getWindowWidth(), gameSettings.getWindowHeight()));
+        fMain.setResizable(false);
+        fMain.setLayout(new BoxLayout(fMain.getContentPane(), BoxLayout.Y_AXIS));
+        fMain.add(pInfo);
+        fMain.add(pGame);
+        fMain.setVisible(true);
+        fMain.pack();
+        fMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public JFrame getFMain() {
-        return f_main;
+        return fMain;
     }
 
-    public void setFMain(JFrame f_main) {
-        this.f_main = f_main;
+    public void setFMain(JFrame fMain) {
+        this.fMain = fMain;
     }
 
     public GamePanel getPGame() {
-        return p_game;
+        return pGame;
     }
 
-    public void setPGame(GamePanel p_game) {
-        this.p_game = p_game;
+    public void setPGame(GamePanel pGame) {
+        this.pGame = pGame;
     }
 
     public InfoPanel getPInfo() {
-        return p_info;
+        return pInfo;
     }
 
-    public void setPInfo(InfoPanel p_info) {
-        this.p_info = p_info;
+    public void setPInfo(InfoPanel pInfo) {
+        this.pInfo = pInfo;
     }
 
 }

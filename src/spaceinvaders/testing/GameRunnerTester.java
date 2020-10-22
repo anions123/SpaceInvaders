@@ -6,7 +6,7 @@ import spaceinvaders.engine.GameRules;
 import spaceinvaders.resources.scenes.levels.Level0;
 
 public class GameRunnerTester {
-    public GameRules gameRules;
+    private GameRules gameRules;
 
     public GameRunnerTester(){
         gameRules = GameRules.getInstance(new Level0());

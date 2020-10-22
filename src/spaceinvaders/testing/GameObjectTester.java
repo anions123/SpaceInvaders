@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GameObjectTester {
-    public BufferedImage testingSprite;
+    private BufferedImage testingSprite;
 
     public GameObjectTester(){
         testingSprite = new BufferedImage(150, 150, BufferedImage.TYPE_INT_RGB);

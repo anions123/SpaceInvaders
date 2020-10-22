@@ -1,7 +1,6 @@
 package spaceinvaders.resources.objects.aliens;
 
 import spaceinvaders.engine.misc.TimerController;
-import spaceinvaders.engine.object.GameObject;
 import spaceinvaders.engine.object.Position;
 import spaceinvaders.resources.objects.BaseAlien;
 

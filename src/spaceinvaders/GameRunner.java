@@ -14,18 +14,17 @@ public class GameRunner {
 
     private TimerController timerController;
     private KeybindingController keybindingController;
-    private GameRules gameRules;
     private WindowLoader windowLoader;
 
     public GameRunner() {
-        gameRules = GameRules.getInstance(new Level0());
+        GameRules gameRules = GameRules.getInstance(new Level0());
         windowLoader = new WindowLoader();
         windowLoader.initialize();
         timerController = TimerController.getInstance(windowLoader.getFMain(), windowLoader.getPInfo());
         timerController.startAllTimers();
 
         //Setup keybindings CMD Pattern
-        keybindingController = new KeybindingController(windowLoader.getPGame(), timerController);
+        keybindingController = new KeybindingController(windowLoader.getPGame());
         keybindingController.addKeybinding(new PressedAKeybinding());
         keybindingController.addKeybinding(new ReleasedAKeybinding());
         keybindingController.addKeybinding(new PressedDKeybinding());

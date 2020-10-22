@@ -4,9 +4,9 @@ package spaceinvaders.engine.object;
 public class Position {
     private int x;
     private int y;
-    private int centerOffset_x;
-    private int centerOffset_y;
-    private int direction_y;
+    private int centerOffsetX;
+    private int centerOffsetY;
+    private int directionY;
 
     public Position(){
     }
@@ -16,18 +16,18 @@ public class Position {
         this.y = y;
     }
 
-    public Position(int x, int y, int direction_y){
+    public Position(int x, int y, int directionY){
         this.x = x;
         this.y = y;
-        this.direction_y = direction_y;
+        this.directionY = directionY;
     }
 
-    public Position(int x, int y, int direction_y, int centerOffset_x, int centerOffset_y){
+    public Position(int x, int y, int directionY, int centerOffsetX, int centerOffsetY){
         this.x = x;
         this.y = y;
-        this.centerOffset_x = centerOffset_x;
-        this.centerOffset_y = centerOffset_y;
-        this.direction_y = direction_y;
+        this.centerOffsetX = centerOffsetX;
+        this.centerOffsetY = centerOffsetY;
+        this.directionY = directionY;
     }
 
     public void translate(int x, int y){
@@ -49,25 +49,25 @@ public class Position {
         this.x = x;
     }
 
-    public void setCenterOffset_x(int x){
-        this.centerOffset_x = x;
+    public void setCenterOffsetX(int x){
+        this.centerOffsetX = x;
     }
-    public int getCenterOffset_x(){
-        return centerOffset_x;
-    }
-
-    public void setCenterOffset_y(int y){
-        this.centerOffset_y = y;
-    }
-    public int getCenterOffset_y(){
-        return centerOffset_y;
+    public int getCenterOffsetX(){
+        return centerOffsetX;
     }
 
-    public int getDirection_y() {
-        return direction_y;
+    public void setCenterOffsetY(int y){
+        this.centerOffsetY = y;
+    }
+    public int getCenterOffsetY(){
+        return centerOffsetY;
     }
 
-    public void setDirection_y(int direction_y) {
-        this.direction_y = direction_y;
+    public int getDirectionY() {
+        return directionY;
+    }
+
+    public void setDirectionY(int directionY) {
+        this.directionY = directionY;
     }
 }

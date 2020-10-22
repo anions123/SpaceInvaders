@@ -14,6 +14,21 @@ public class AlienProjectileCollisionDetector implements ProjectileCollisionDete
         gameRules = GameRules.getInstance();
     }
 
+    private void killAlien(BaseAlien alien){
+        alien.setAlive(false);
+        gameRules.addScore(alien.getPoints());
+    }
+    private boolean isAliveIfYesKillAlien(BaseAlien alien){
+        if(alien.isAlive()){
+            killAlien(alien);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+
     @Override
     public boolean process(Projectile projectile) {
         if(!projectile.getOwnerType().equals("alien")){
@@ -22,15 +37,7 @@ public class AlienProjectileCollisionDetector implements ProjectileCollisionDete
                 for(BaseAlien a : al.getColumn()){
                     tester = a.doCollide(projectile.getCollisionBox());
                     if(tester){
-                        if(a.isAlive()){
-                            a.setAlive(false);
-                            gameRules.addScore(a.getPoints());
-                            return true;
-                        }
-                        else{
-                            return false;
-                        }
-
+                        return isAliveIfYesKillAlien(a);
                     }
                 }
             }

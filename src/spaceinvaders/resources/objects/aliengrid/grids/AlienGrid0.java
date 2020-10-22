@@ -15,12 +15,12 @@ public class AlienGrid0 extends BaseAlienGrid {
     @Override
     protected List<BaseAlienColumn> setAlienGrid() {
         List<BaseAlienColumn> alienColumns = new ArrayList<>();
-        int pos_x = 0;
+        int posX = 0;
         BaseAlienColumn alienColumn;
         for(int i = 0; i < 11; i++){
             alienColumn = new AlienColumn0();
             alienColumns.add(alienColumn);
-            alienColumn.setColumnPositionX(pos_x + i*(int)(alienColumn.getWidthOfWidestAliveAlien()*1.25));
+            alienColumn.setColumnPositionX(posX + i*(int)(alienColumn.getWidthOfWidestAliveAlien()*1.25));
         }
         return alienColumns;
     }

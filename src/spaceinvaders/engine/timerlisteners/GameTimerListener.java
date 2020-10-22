@@ -1,6 +1,5 @@
 package spaceinvaders.engine.timerlisteners;
 
-import spaceinvaders.GameSettings;
 import spaceinvaders.resources.objects.player.PlayerControls;
 import spaceinvaders.window.panels.InfoPanel;
 import spaceinvaders.engine.GameRules;
@@ -11,22 +10,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameTimerListener implements ActionListener {
-    private JFrame f_main;
-    private InfoPanel p_info;
+    private JFrame fMain;
+    private InfoPanel pInfo;
     private GameRules gameRules;
-    private GameSettings gameSettings;
     private PlayerControls playerControls;
 
-    public GameTimerListener(JFrame f_main, InfoPanel p_info){
-        this.f_main = f_main;
-        this.p_info = p_info;
+    public GameTimerListener(JFrame fMain, InfoPanel pInfo){
+        this.fMain = fMain;
+        this.pInfo = pInfo;
         gameRules = GameRules.getInstance();
-        gameSettings = GameSettings.getInstance();
         playerControls = PlayerControls.getInstance();
     }
 
-    private void endGamePopUp(ActionEvent e){
-        int result = JOptionPane.showConfirmDialog(f_main, "Your score: "+gameRules.getScore()+"\nYou have lost, you want to restart ?", "End of game",
+    private void endGamePopUp(){
+        int result = JOptionPane.showConfirmDialog(fMain, "Your score: "+gameRules.getScore()+"\nYou have lost, you want to restart ?", "End of game",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.YES_NO_OPTION){
@@ -41,14 +38,14 @@ public class GameTimerListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(!gameRules.isGameOn()){
             TimerController.getInstance().stopAllTimers();
-            endGamePopUp(e);
+            endGamePopUp();
 
         }
         else{
             TimerController.getInstance().removeExpired();
             playerControls.execute();
-            f_main.repaint();
-            p_info.updateValues();
+            fMain.repaint();
+            pInfo.updateValues();
         }
 
     }

@@ -12,7 +12,6 @@ public abstract class BaseAlien extends GameObject implements Shooting {
     private int points;
     private boolean isAlive;
     private Projectile projectile;
-    private boolean canShoot = true;
 
     public BaseAlien(int points, BufferedImage image, Position position){
         super(image, position);
@@ -37,6 +36,7 @@ public abstract class BaseAlien extends GameObject implements Shooting {
     }
     @Override
     public boolean canShoot(){
+        boolean canShoot;
         if(projectile != null && projectile.isAliveProjectile()){
             canShoot = false;
         }
@@ -53,9 +53,9 @@ public abstract class BaseAlien extends GameObject implements Shooting {
     public void shoot() throws IOException {
         if(canShoot()){
             projectile = new Projectile(new Position(
-                    position.getX() + position.getCenterOffset_x(),
+                    position.getX() + position.getCenterOffsetX(),
                     position.getY() + sprite.getHeight(),
-                    position.getDirection_y()), "alien");
+                    position.getDirectionY()), "alien");
         }
     }
 

@@ -17,12 +17,12 @@ public class AlienColumn0 extends BaseAlienColumn {
     public List<BaseAlien> setAlienColumn() {
         List<BaseAlien> alienColumn = new ArrayList<>();
         try {
-            int y_pos = 100;
-            alienColumn.add(new SmallAlien(new Position(0, y_pos, 1)));
-            alienColumn.add(new MediumAlien(new Position(0, y_pos + 50, 1)));
-            alienColumn.add(new MediumAlien(new Position(0, y_pos + 100, 1)));
-            alienColumn.add(new BigAlien(new Position(0, y_pos + 150, 1)));
-            alienColumn.add(new BigAlien(new Position(0, y_pos + 200, 1)));
+            int yPos = 100;
+            alienColumn.add(new SmallAlien(new Position(0, yPos, 1)));
+            alienColumn.add(new MediumAlien(new Position(0, yPos + 50, 1)));
+            alienColumn.add(new MediumAlien(new Position(0, yPos + 100, 1)));
+            alienColumn.add(new BigAlien(new Position(0, yPos + 150, 1)));
+            alienColumn.add(new BigAlien(new Position(0, yPos + 200, 1)));
         } catch (IOException e) {
             e.printStackTrace();
         }

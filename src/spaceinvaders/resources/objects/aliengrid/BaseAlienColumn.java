@@ -38,10 +38,8 @@ public abstract class BaseAlienColumn implements Rendering {
     }
 
     public boolean checkIfContainsAliveAliens(){
-        if(containsAliveAliens){
-            if(getLastAlive() == null){
-                containsAliveAliens = false;
-            }
+        if(containsAliveAliens && getLastAlive() == null){
+            containsAliveAliens = false;
         }
         return containsAliveAliens;
     }
@@ -58,7 +56,7 @@ public abstract class BaseAlienColumn implements Rendering {
     public void setColumnPositionX(int x){
         columnPositionX = x;
         for(BaseAlien ba : alienColumn){
-            ba.setPosition_X(x + getWidthOfWidestAliveAlien()/2 - ba.getCenterOffset_x());
+            ba.setPositionX(x + getWidthOfWidestAliveAlien()/2 - ba.getCenterOffsetX());
         }
     }
 

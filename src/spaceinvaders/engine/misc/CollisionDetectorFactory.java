@@ -7,6 +7,7 @@ import spaceinvaders.resources.collisiondetectors.detectors.ShieldProjectileColl
 import spaceinvaders.resources.collisiondetectors.detectors.UFOProjectileCollisionDetector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CollisionDetectorFactory {
     private ArrayList<ProjectileCollisionDetector> collisionList;
@@ -22,7 +23,7 @@ public class CollisionDetectorFactory {
         collisionList.add(new UFOProjectileCollisionDetector());
     }
 
-    public ArrayList<ProjectileCollisionDetector> getCollisionDetectors(){
+    public List<ProjectileCollisionDetector> getCollisionDetectors(){
         return collisionList;
     }
 }

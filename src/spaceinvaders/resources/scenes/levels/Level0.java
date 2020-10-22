@@ -12,20 +12,20 @@ import java.util.ArrayList;
 
 public class Level0 extends BaseLevel {
     private GameSettings gameSettings;
-    private int playerPosition_y;
+    private int playerPositionY;
 
 
     public Level0(){
         super(new AlienGrid0());
         gameSettings = GameSettings.getInstance();
-        playerPosition_y = (int)(gameSettings.getWindowHeight() * 0.8);
+        playerPositionY = (int)(gameSettings.getWindowHeight() * 0.8);
         shields = new ArrayList<>();
         shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.1), (int)(gameSettings.getWindowHeight()*0.6))));
         shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.3), (int)(gameSettings.getWindowHeight()*0.6))));
         shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.6), (int)(gameSettings.getWindowHeight()*0.6))));
         shields.add(new FortressShield(new Position((int)(gameSettings.getWindowWidth() * 0.9), (int)(gameSettings.getWindowHeight()*0.6))));
         try {
-            player = new Player(new Position(gameSettings.getWindowWidth()/2,playerPosition_y, -1));
+            player = new Player(new Position(gameSettings.getWindowWidth()/2, playerPositionY, -1));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,9 +13,11 @@ public abstract class BaseAlienGrid implements Rendering {
     private int movementDirection;  //1 = right, -1 = left
     private int alienColumnCount;
     private List<BaseAlienColumn> alienGird;
+    private Random random;
 
     public BaseAlienGrid(){
         movementDirection = 1;
+        random = new Random();
         alienColumnCount = setAlienColumnCount();
         alienGird = setAlienGrid();
     }
@@ -60,7 +62,7 @@ public abstract class BaseAlienGrid implements Rendering {
                     lowestAlien = temp;
                 }
                 else{
-                    if(temp.getPosition_Y() > lowestAlien.getPosition_Y()){
+                    if(temp.getPositionY() > lowestAlien.getPositionY()){
                         lowestAlien = temp;
                     }
                 }
@@ -71,8 +73,7 @@ public abstract class BaseAlienGrid implements Rendering {
 
     private BaseAlienColumn getRandomAliveColumn(){
         List<BaseAlienColumn> tempColumn = alienGird.stream().filter(BaseAlienColumn::checkIfContainsAliveAliens).collect(Collectors.toList());
-        Random rand = new Random();
-        return tempColumn.get(rand.nextInt(tempColumn.size()));
+        return tempColumn.get(random.nextInt(tempColumn.size()));
     }
 
 

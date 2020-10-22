@@ -6,9 +6,9 @@ import spaceinvaders.engine.GameRules;
 import java.io.IOException;
 
 public class PlayerControls {
-    private boolean Left = false;
-    private boolean Right = false;
-    private boolean Shoot = false;
+    private boolean left = false;
+    private boolean right = false;
+    private boolean shoot = false;
 
     private GameSettings gameSettings;
     private GameRules gameRules;
@@ -29,29 +29,28 @@ public class PlayerControls {
     }
 
     public void execute(){
-        if(Left){
+        if(left){
             moveLeft();
         }
-        if(Right){
+        if(right){
             moveRight();
         }
-        if(Shoot){
+        if(shoot){
             shoot();
-            Shoot = false;
+            shoot = false;
         }
 
     }
 
     private void fixOutOfBounds(){
-        if(gameRules.getPlayerPosition_X()< 0)
-            gameRules.setPlayerPosition_X(0);
-        if(gameRules.getPlayerPosition_X() + gameRules.getPlayerSprite_Width() > gameSettings.getWindowWidth()){
-            gameRules.setPlayerPosition_X(gameSettings.getWindowWidth() - gameRules.getPlayerSprite_Width());
+        if(gameRules.getPlayerPositionX()< 0)
+            gameRules.setPlayerPositionX(0);
+        if(gameRules.getPlayerPositionX() + gameRules.getPlayerSpriteWidth() > gameSettings.getWindowWidth()){
+            gameRules.setPlayerPositionX(gameSettings.getWindowWidth() - gameRules.getPlayerSpriteWidth());
         }
     }
 
     private void moveLeft(){
-        //GameRules gameRules = GameRules.getInstance();
         gameRules.translatePlayerPosition(-gameSettings.getPlayerSpeed(), 0);
         fixOutOfBounds();
     }
@@ -70,21 +69,21 @@ public class PlayerControls {
     }
 
     public void resetControls(){
-        Left = false;
-        Right = false;
-        Shoot = false;
+        left = false;
+        right = false;
+        shoot = false;
     }
 
     public void setLeft(boolean left) {
-        Left = left;
+        this.left = left;
     }
 
     public void setRight(boolean right) {
-        Right = right;
+        this.right = right;
     }
 
     public void setShoot(boolean shoot) {
-        Shoot = shoot;
+        this.shoot = shoot;
     }
 
 }

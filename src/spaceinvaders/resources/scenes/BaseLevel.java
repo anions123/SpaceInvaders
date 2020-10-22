@@ -10,13 +10,12 @@ import spaceinvaders.resources.objects.player.Player;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseLevel implements Rendering {
     protected BaseAlienGrid alienGrid;
     protected Player player;
-    protected ArrayList<BaseShield> shields;
+    protected List<BaseShield> shields;
     protected UFO ufo;
 
     public BaseLevel(BaseAlienGrid alienGrid){
@@ -35,10 +34,10 @@ public abstract class BaseLevel implements Rendering {
     public void setPlayer(Player player){
         this.player = player;
     }
-    public void setShields(ArrayList<BaseShield> shields){
+    public void setShields(List<BaseShield> shields){
         this.shields = shields;
     }
-    public ArrayList<BaseShield> getShields(){
+    public List<BaseShield> getShields(){
         return shields;
     }
 
@@ -49,10 +48,8 @@ public abstract class BaseLevel implements Rendering {
         for(BaseShield s : shields){
             s.render(g);
         }
-        if(ufo != null){
-            if(ufo.isAlive()){
-                ufo.render(g);
-            }
+        if(ufo != null && ufo.isAlive()){
+            ufo.render(g);
         }
     }
 
@@ -76,22 +73,22 @@ public abstract class BaseLevel implements Rendering {
     public void translatePlayerPosition(int x, int y){
         player.translatePosition(x, y);
     }
-    public void setPlayerPosition_X(int x){
-        player.setPosition_X(x);
+    public void setPlayerPositionX(int x){
+        player.setPositionX(x);
     }
-    public void setPlayerPosition_Y(int y){
-        player.setPosition_Y(y);
+    public void setPlayerPositionY(int y){
+        player.setPositionY(y);
     }
-    public int getPlayerPosition_X(){
-        return player.getPosition_X();
+    public int getPlayerPositionX(){
+        return player.getPositionX();
     }
-    public int getPlayerPosition_Y(){
-        return player.getPosition_Y();
+    public int getPlayerPositionY(){
+        return player.getPositionY();
     }
-    public int getPlayerSprite_Width(){
+    public int getPlayerSpriteWidth(){
         return player.getSpriteWidth();
     }
-    public int getPlayerSprite_Height(){
+    public int getPlayerSpriteHeight(){
         return player.getSpriteHeight();
     }
     public void shootAsPlayer() throws IOException {
@@ -102,15 +99,12 @@ public abstract class BaseLevel implements Rendering {
     }
     public int getUFOPoints(){
         return ufo.getPoints();
-    };
+    }
 
     public void setUFOAliveState(boolean alive){
         ufo.setAlive(alive);
     }
     public boolean isUFONull(){
-        if(ufo == null){
-            return true;
-        }
-        return false;
+        return (ufo == null);
     }
 }

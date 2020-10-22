@@ -9,7 +9,6 @@ import spaceinvaders.resources.objects.aliengrid.BaseAlienGrid;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class GridMovementTimerListener implements ActionListener {
     private int directionChangesLeft = 2;
@@ -60,7 +59,7 @@ public class GridMovementTimerListener implements ActionListener {
                 gameRules.setGameOn(false);
             }
             else{
-                if(lowestAlien.getPosition_Y() + lowestAlien.getSpriteHeight() >= gameRules.getPlayerPosition_Y()){
+                if(lowestAlien.getPositionY() + lowestAlien.getSpriteHeight() >= gameRules.getPlayerPositionY()){
                     gameRules.setGameOn(false);
                 }
             }

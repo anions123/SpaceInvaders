@@ -20,7 +20,7 @@ public class UFOMovementTimerListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(ufo.isAlive()){
             ufo.translatePosition(-gameSettings.getUfoSpeed(), 0);
-            if(ufo.getPosition_X()+ufo.getSpriteWidth()<=0){
+            if(ufo.getPositionX()+ufo.getSpriteWidth()<=0){
                 ((Timer)e.getSource()).stop();
             }
         }

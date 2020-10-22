@@ -25,8 +25,8 @@ public class GameObject implements Rendering {
     }
 
     private void setupCenterOffset(){
-        position.setCenterOffset_x(sprite.getWidth()/2);
-        position.setCenterOffset_y(sprite.getHeight()/2);
+        position.setCenterOffsetX(sprite.getWidth()/2);
+        position.setCenterOffsetY(sprite.getHeight()/2);
     }
 
     public CollisionBox getCollisionBox(){return collisionBox;}
@@ -60,26 +60,26 @@ public class GameObject implements Rendering {
     public void setPosition(Position position){this.position = position;}
 
     //lod
-    public void setPosition_X(int x){
+    public void setPositionX(int x){
         position.setX(x);
     }
-    public void setPosition_Y(int y){
+    public void setPositionY(int y){
         position.setY(y);
     }
-    public int getPosition_X(){
+    public int getPositionX(){
         return position.getX();
     }
-    public int getPosition_Y(){
+    public int getPositionY(){
         return position.getY();
     }
     public void translatePosition(int x, int y){
         position.translate(x, y);
     }
-    public int getDirection_Y(){
-        return position.getDirection_y();
+    public int getDirectionY(){
+        return position.getDirectionY();
     }
-    public int getCenterOffset_x(){
-        return position.getCenterOffset_x();
+    public int getCenterOffsetX(){
+        return position.getCenterOffsetX();
     }
     public int getSpriteHeight(){
         return sprite.getHeight();

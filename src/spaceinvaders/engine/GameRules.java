@@ -60,15 +60,9 @@ public class GameRules {
         return level.getPlayer();
     }
 
-    public boolean isPlayerDead(){
-        if(level.getPlayerLivesLeft() <= 0){
-            return true;
-        }
-        return false;
+    public boolean isPlayerDead() {
+        return (level.getPlayerLivesLeft() <= 0);
     }
-
-
-
 
 
     public BaseLevel getLevel() {
@@ -121,11 +115,11 @@ public class GameRules {
     public List<BaseShield> getShields(){
         return level.getShields();
     }
-    public int getPlayerSprite_Width(){
-        return level.getPlayerSprite_Width();
+    public int getPlayerSpriteWidth(){
+        return level.getPlayerSpriteWidth();
     }
-    public int getPlayerSprite_Height(){
-        return level.getPlayerSprite_Height();
+    public int getPlayerSpriteHeight(){
+        return level.getPlayerSpriteHeight();
     }
     public int getPlayerLivesLeft(){
         return level.getPlayerLivesLeft();
@@ -134,17 +128,17 @@ public class GameRules {
     public void translatePlayerPosition(int x, int y){
         level.translatePlayerPosition(x, y);
     }
-    public void setPlayerPosition_X(int x){
-        level.setPlayerPosition_X(x);
+    public void setPlayerPositionX(int x){
+        level.setPlayerPositionX(x);
     }
-    public int getPlayerPosition_X(){
-        return level.getPlayerPosition_X();
+    public int getPlayerPositionX(){
+        return level.getPlayerPositionX();
     }
-    public void setPlayerPosition_Y(int y){
-        level.setPlayerPosition_Y(y);
+    public void setPlayerPositionY(int y){
+        level.setPlayerPositionY(y);
     }
-    public int getPlayerPosition_Y(){
-        return level.getPlayerPosition_Y();
+    public int getPlayerPositionY(){
+        return level.getPlayerPositionY();
     }
     public void shootAsPlayer() throws IOException {
         level.shootAsPlayer();

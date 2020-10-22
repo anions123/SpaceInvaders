@@ -31,9 +31,9 @@ public class ProjectileTimerListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        projectile.translatePosition(0, gameSettings.getProjectileSpeed() * projectile.getDirection_Y());
+        projectile.translatePosition(0, gameSettings.getProjectileSpeed() * projectile.getDirectionY());
         boolean tester = projectileCollisionDetection(projectile);
-        if(projectile.getPosition_Y()<=0 || projectile.getPosition_Y() >= gameSettings.getWindowHeight() || tester){
+        if(projectile.getPositionY()<=0 || projectile.getPositionY() >= gameSettings.getWindowHeight() || tester){
             projectile.setAliveProjectile(false);
             ((Timer)e.getSource()).stop();
         }

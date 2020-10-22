@@ -13,7 +13,6 @@ import java.io.IOException;
 
 public class Player extends GameObject implements Shooting {
     private Projectile projectile;
-    private boolean canShoot = true;
     private int livesLeft;
 
     public Player(Position position) throws IOException {
@@ -23,6 +22,7 @@ public class Player extends GameObject implements Shooting {
 
     @Override
     public boolean canShoot() {
+        boolean canShoot;
         if(projectile != null && projectile.isAliveProjectile()){
             canShoot = false;
         }
@@ -39,9 +39,9 @@ public class Player extends GameObject implements Shooting {
     public void shoot() throws IOException {
         if(canShoot()){
             projectile = new Projectile(new Position(
-                    position.getX() + position.getCenterOffset_x(),
+                    position.getX() + position.getCenterOffsetX(),
                     position.getY() - sprite.getHeight(),
-                    position.getDirection_y()), "player");
+                    position.getDirectionY()), "player");
         }
     }
 

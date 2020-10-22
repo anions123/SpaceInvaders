@@ -13,8 +13,8 @@ import java.util.List;
 
 public class TimerController {
     private List<Timer> timers;
-    private JFrame f_main;
-    private InfoPanel p_info;
+    private JFrame fMain;
+    private InfoPanel pInfo;
     private boolean pause = false;
     private GameSettings gameSettings;
 
@@ -22,17 +22,17 @@ public class TimerController {
 
 
 
-    private TimerController(JFrame f_main, InfoPanel p_info){
+    private TimerController(JFrame fMain, InfoPanel pInfo){
         gameSettings = GameSettings.getInstance();
         timers = new ArrayList<>();
-        this.f_main = f_main;
-        this.p_info = p_info;
+        this.fMain = fMain;
+        this.pInfo = pInfo;
         setupBaseTimers();
     }
 
-    public static TimerController getInstance(JFrame f_main, InfoPanel p_info){
+    public static TimerController getInstance(JFrame fMain, InfoPanel pInfo){
         if(timerController == null){
-            timerController = new TimerController(f_main, p_info);
+            timerController = new TimerController(fMain, pInfo);
         }
         return timerController;
     }
@@ -45,7 +45,7 @@ public class TimerController {
     }
 
     private void setupBaseTimers(){
-        timers.add(new Timer(gameSettings.getGameDelay(), new GameTimerListener(f_main, p_info)));
+        timers.add(new Timer(gameSettings.getGameDelay(), new GameTimerListener(fMain, pInfo)));
         timers.add(new Timer(gameSettings.getGridDelay(), new GridMovementTimerListener()));
         timers.add(new Timer(gameSettings.getGridShootDelay(), new GridShootingTimerListener()));
         timers.add(new Timer(gameSettings.getUfoSpawnDelay(), new UFOSpawnTimerListener()));
