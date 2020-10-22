@@ -1,16 +1,16 @@
 package spaceinvaders.resources.collisiondetectors.detectors;
 
 import spaceinvaders.engine.GameRules;
-import spaceinvaders.resources.collisiondetectors.CollisionDetector;
+import spaceinvaders.resources.collisiondetectors.ProjectileCollisionDetector;
 import spaceinvaders.resources.objects.BaseAlien;
 import spaceinvaders.resources.objects.Projectile;
 import spaceinvaders.resources.objects.aliengrid.BaseAlienColumn;
 
-public class AlienCollisionDetector implements CollisionDetector {
+public class AlienProjectileCollisionDetector implements ProjectileCollisionDetector {
 
     private GameRules gameRules;
 
-    public AlienCollisionDetector(){
+    public AlienProjectileCollisionDetector(){
         gameRules = GameRules.getInstance();
     }
 

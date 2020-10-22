@@ -1,9 +1,8 @@
 package spaceinvaders.engine.timerlisteners;
 
 import spaceinvaders.GameSettings;
-import spaceinvaders.engine.GameRules;
 import spaceinvaders.engine.misc.CollisionDetectorFactory;
-import spaceinvaders.resources.collisiondetectors.CollisionDetector;
+import spaceinvaders.resources.collisiondetectors.ProjectileCollisionDetector;
 import spaceinvaders.resources.objects.Projectile;
 
 import javax.swing.*;
@@ -22,7 +21,7 @@ public class ProjectileTimerListener implements ActionListener {
     }
 
     public boolean projectileCollisionDetection(Projectile projectile){
-        for(CollisionDetector cd : collisionDetectorFactory.getCollisionDetectors()){
+        for(ProjectileCollisionDetector cd : collisionDetectorFactory.getCollisionDetectors()){
             if(cd.process(projectile)){
                 return true;
             }

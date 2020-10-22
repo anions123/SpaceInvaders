@@ -1,9 +1,9 @@
 package spaceinvaders;
 
-import spaceinvaders.engine.misc.CollisionDetectorFactory;
 import spaceinvaders.engine.GameRules;
 import spaceinvaders.engine.misc.KeybindingController;
 import spaceinvaders.engine.misc.TimerController;
+import spaceinvaders.resources.keybindings.keybindings.*;
 import spaceinvaders.resources.scenes.levels.*;
 import spaceinvaders.window.WindowLoader;
 
@@ -23,7 +23,15 @@ public class GameRunner {
         windowLoader.initialize();
         timerController = TimerController.getInstance(windowLoader.getFMain(), windowLoader.getPInfo());
         timerController.startAllTimers();
-        keybindingController = KeybindingController.getInstance(windowLoader.getPGame(), timerController);
+
+        //Setup keybindings CMD Pattern
+        keybindingController = new KeybindingController(windowLoader.getPGame(), timerController);
+        keybindingController.addKeybinding(new PressedAKeybinding());
+        keybindingController.addKeybinding(new ReleasedAKeybinding());
+        keybindingController.addKeybinding(new PressedDKeybinding());
+        keybindingController.addKeybinding(new ReleasedDKeybinding());
+        keybindingController.addKeybinding(new ReleasedSPACEKeybinding());
+        keybindingController.addKeybinding(new PressedRKeybinding(timerController));
         keybindingController.setupKeybindings();
 
     }

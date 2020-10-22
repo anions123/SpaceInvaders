@@ -1,12 +1,11 @@
 package spaceinvaders.resources.objects.player;
 
-import spaceinvaders.GameRunner;
 import spaceinvaders.GameSettings;
 import spaceinvaders.engine.GameRules;
 
 import java.io.IOException;
 
-public class PlayerControlls {
+public class PlayerControls {
     private boolean Left = false;
     private boolean Right = false;
     private boolean Shoot = false;
@@ -14,17 +13,17 @@ public class PlayerControlls {
     private GameSettings gameSettings;
     private GameRules gameRules;
 
-    private static PlayerControlls instance;
+    private static PlayerControls instance;
 
-    private PlayerControlls(){
+    private PlayerControls(){
         gameSettings = GameSettings.getInstance();
         gameRules = GameRules.getInstance();
     }
 
 
-    public static PlayerControlls getInstance(){
+    public static PlayerControls getInstance(){
         if(instance == null){
-            instance = new PlayerControlls();
+            instance = new PlayerControls();
         }
         return instance;
     }

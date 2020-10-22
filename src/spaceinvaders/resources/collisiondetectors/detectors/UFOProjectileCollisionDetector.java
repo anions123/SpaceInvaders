@@ -1,13 +1,13 @@
 package spaceinvaders.resources.collisiondetectors.detectors;
 
 import spaceinvaders.engine.GameRules;
-import spaceinvaders.resources.collisiondetectors.CollisionDetector;
+import spaceinvaders.resources.collisiondetectors.ProjectileCollisionDetector;
 import spaceinvaders.resources.objects.Projectile;
 
-public class UFOCollisionDetector implements CollisionDetector {
+public class UFOProjectileCollisionDetector implements ProjectileCollisionDetector {
     private GameRules gameRules;
 
-    public UFOCollisionDetector(){
+    public UFOProjectileCollisionDetector(){
         gameRules = GameRules.getInstance();
     }
 

@@ -1,30 +1,28 @@
 package spaceinvaders.engine.timerlisteners;
 
 import spaceinvaders.GameSettings;
-import spaceinvaders.resources.objects.player.PlayerControlls;
+import spaceinvaders.resources.objects.player.PlayerControls;
 import spaceinvaders.window.panels.InfoPanel;
-import spaceinvaders.GameRunner;
 import spaceinvaders.engine.GameRules;
 import spaceinvaders.engine.misc.TimerController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class GameTimerListener implements ActionListener {
     private JFrame f_main;
     private InfoPanel p_info;
     private GameRules gameRules;
     private GameSettings gameSettings;
-    private PlayerControlls playerControlls;
+    private PlayerControls playerControls;
 
     public GameTimerListener(JFrame f_main, InfoPanel p_info){
         this.f_main = f_main;
         this.p_info = p_info;
         gameRules = GameRules.getInstance();
         gameSettings = GameSettings.getInstance();
-        playerControlls = PlayerControlls.getInstance();
+        playerControls = PlayerControls.getInstance();
     }
 
     private void endGamePopUp(ActionEvent e){
@@ -48,7 +46,7 @@ public class GameTimerListener implements ActionListener {
         }
         else{
             TimerController.getInstance().removeExpired();
-            playerControlls.execute();
+            playerControls.execute();
             f_main.repaint();
             p_info.updateValues();
         }

@@ -1,8 +1,7 @@
 package spaceinvaders.resources.keybindings.keybindings;
 
-import spaceinvaders.GameRunner;
 import spaceinvaders.resources.keybindings.Keybinding;
-import spaceinvaders.resources.objects.player.PlayerControlls;
+import spaceinvaders.resources.objects.player.PlayerControls;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +17,7 @@ public class PressedDKeybinding implements Keybinding {
         component.getActionMap().put("rightOn", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlayerControlls.getInstance().setRight(true);
+                PlayerControls.getInstance().setRight(true);
             }
         });
     }

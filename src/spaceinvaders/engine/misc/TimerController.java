@@ -2,7 +2,6 @@ package spaceinvaders.engine.misc;
 
 import spaceinvaders.GameSettings;
 import spaceinvaders.engine.timerlisteners.*;
-import spaceinvaders.resources.collisiondetectors.CollisionDetector;
 import spaceinvaders.resources.objects.aliens.UFO;
 import spaceinvaders.window.panels.InfoPanel;
 import spaceinvaders.resources.objects.Projectile;
