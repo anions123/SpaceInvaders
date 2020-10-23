@@ -31,7 +31,7 @@ public abstract class BaseShieldPart extends GameObject {
     public void render(Graphics g){
         if(currentLives > 0){
             g.drawImage(sprite, position.getX(), position.getY(), null);
-            g.drawString(currentLives+"/"+maxLives, position.getX(), position.getY());
+            g.drawString(currentLives+"/"+maxLives, position.getX(), position.getY() + 10);
         }
 
     }
